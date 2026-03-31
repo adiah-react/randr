@@ -59,8 +59,18 @@ export function RSVPPage() {
     (g) => g.status !== "pending",
   );
   return (
-    <PageTransition className="bg-gray-50 min-h-screen pt-24 pb-24">
-      <div className="max-w-3xl mx-auto px-6">
+    <PageTransition className="min-h-screen pt-24 pb-24 relative">
+      {/* Background Image */}
+      <div className="fixed inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=2069&auto=format&fit=crop"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-white/92" />
+      </div>
+
+      <div className="max-w-3xl mx-auto px-6 relative z-10">
         <ScrollReveal className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-serif mb-4 text-wedding-black">
             RSVP

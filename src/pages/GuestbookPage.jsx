@@ -26,8 +26,18 @@ export function GuestbookPage() {
     // No need to manually update state - real-time listener will handle it
   };
   return (
-    <PageTransition className="bg-white min-h-screen pt-24 pb-24">
-      <div className="max-w-3xl mx-auto px-6">
+    <PageTransition className="min-h-screen pt-24 pb-24 relative">
+      {/* Background Image */}
+      <div className="fixed inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070&auto=format&fit=crop"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-white/90" />
+      </div>
+
+      <div className="max-w-3xl mx-auto px-6 relative z-10">
         <ScrollReveal className="text-center mb-16">
           <h1 className="text-5xl md:text-6xl font-serif mb-4 text-wedding-black">
             Guestbook

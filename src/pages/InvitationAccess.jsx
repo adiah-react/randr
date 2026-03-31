@@ -19,8 +19,18 @@ export function InvitationAccess() {
     }
   }, [isAuthenticated, navigate, location]);
   return (
-    <PageTransition className="min-h-screen bg-white flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-2xl mx-auto text-center">
+    <PageTransition className="min-h-screen flex flex-col items-center justify-center p-6 relative">
+      {/* Background Image */}
+      <div className="fixed inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?q=80&w=2069&auto=format&fit=crop"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-white/90" />
+      </div>
+
+      <div className="w-full max-w-2xl mx-auto text-center relative z-10">
         <motion.div
           initial={{
             opacity: 0,

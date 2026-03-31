@@ -11,8 +11,15 @@ export function LandingPage() {
     <PageTransition className="bg-wedding-black text-white">
       {/* Hero Section */}
       <section className="h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
-        {/* Background Elements - Subtle texture or gradient could go here */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-900 via-black to-black opacity-50" />
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/70" />
+        </div>
 
         <div className="z-10 text-center space-y-8 max-w-4xl mx-auto">
           <motion.p

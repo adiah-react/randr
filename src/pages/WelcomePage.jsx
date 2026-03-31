@@ -15,8 +15,18 @@ export function WelcomePage() {
   const { invitation, hasFullAccess } = useInvitation();
   if (!invitation) return null;
   return (
-    <PageTransition className="min-h-screen bg-wedding-black text-white pt-32 pb-20 px-6">
-      <div className="max-w-4xl mx-auto text-center">
+    <PageTransition className="min-h-screen pt-32 pb-20 px-6 relative">
+      {/* Background Image */}
+      <div className="fixed inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"
+          alt=""
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/75" />
+      </div>
+
+      <div className="max-w-4xl mx-auto text-center relative z-10 text-white">
         <motion.div
           initial={{
             opacity: 0,
