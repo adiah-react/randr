@@ -1,16 +1,16 @@
-import { Calendar, Coffee, Diamond, Heart } from "lucide-react";
+import { Calendar, Coffee, Diamond } from "lucide-react";
 import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
 
 const milestones = [
-  {
-    id: 1,
-    title: "First Met",
-    date: "Summer 2018",
-    description:
-      "It started with a chance encounter at a mutual friend's gallery opening. A conversation about abstract art turned into hours of talking about everything under the sun.",
-    icon: <Heart className="w-6 h-6 text-white" />,
-  },
+  // {
+  //   id: 1,
+  //   title: "First Met",
+  //   date: "Summer 2018",
+  //   description:
+  //     "It started with a chance encounter at a mutual friend's gallery opening. A conversation about abstract art turned into hours of talking about everything under the sun.",
+  //   icon: <Heart className="w-6 h-6 text-white" />,
+  // },
   {
     id: 2,
     title: "First Date",

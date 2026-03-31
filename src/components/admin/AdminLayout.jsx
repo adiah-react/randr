@@ -41,7 +41,9 @@ export function AdminLayout({ children, title }) {
       <aside className="w-full md:w-64 bg-wedding-black text-white flex-shrink-0">
         <div className="p-6 border-b border-white/10">
           <h2 className="font-serif text-2xl">Admin Panel</h2>
-          <p className="text-xs text-gray-400 mt-1">Sarah & James Wedding</p>
+          <p className="text-xs text-gray-400 mt-1">
+            Rhiannon & Rashaad Wedding
+          </p>
         </div>
 
         <nav className="p-4 space-y-2 flex-grow">

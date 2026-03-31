@@ -5,8 +5,8 @@ import { Button } from "../components/ui/Button";
 import { CountdownTimer } from "../components/ui/CountdownTimer";
 import { PageTransition } from "../components/ui/PageTransition";
 export function LandingPage() {
-  // Wedding date: August 24, 2024
-  const weddingDate = new Date("2024-08-24T16:00:00");
+  // Wedding date: June 20, 2026
+  const weddingDate = new Date("2026-06-20T14:00:00");
   return (
     <PageTransition className="bg-wedding-black text-white">
       {/* Hero Section */}
@@ -49,11 +49,11 @@ export function LandingPage() {
             }}
             className="text-6xl md:text-8xl lg:text-9xl font-serif tracking-tight leading-none"
           >
-            Sarah{" "}
+            Rhiannon{" "}
             <span className="text-wedding-gold text-4xl md:text-6xl align-middle mx-2">
               &
             </span>{" "}
-            James
+            Rashaad
           </motion.h1>
 
           <motion.div
@@ -72,7 +72,7 @@ export function LandingPage() {
             className="flex flex-col items-center space-y-6"
           >
             <p className="text-wedding-grey text-xl tracking-[0.2em] uppercase font-light">
-              August 24, 2024 • New York City
+              June 20, 2026 • San Fernando
             </p>
 
             {/* Countdown Timer */}

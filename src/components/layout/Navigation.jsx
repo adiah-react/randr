@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useAdmin } from "../../contexts/AdminContext";
 import { useInvitation } from "../../hooks/useInvitation";
+
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -11,10 +12,13 @@ export function Navigation() {
   const navigate = useNavigate();
   const { isAuthenticated, invitation, logout } = useInvitation();
   const { isAdminAuthenticated } = useAdmin();
+
   // Determine theme based on route
   // Landing page and Welcome page are black bg (needs white text)
+
   const isDarkBg =
     location.pathname === "/" || location.pathname === "/welcome";
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -22,22 +26,27 @@ export function Navigation() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
+
   const handleLogout = () => {
     logout();
     navigate("/");
   };
+
   const textColorClass = scrolled
     ? "text-wedding-black"
     : isDarkBg
       ? "text-white"
       : "text-wedding-black";
+
   const bgClass = scrolled
     ? "bg-white/90 backdrop-blur-md shadow-sm py-4"
     : "bg-transparent py-6";
+
   const navLinks = [
     {
       name: "Home",

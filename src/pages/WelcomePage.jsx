@@ -62,14 +62,16 @@ export function WelcomePage() {
         >
           <div className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-colors">
             <Calendar className="w-8 h-8 text-wedding-gold mx-auto mb-4" />
-            <h3 className="font-serif text-xl mb-2">August 24, 2024</h3>
+            <h3 className="font-serif text-xl mb-2">June 20, 2026</h3>
             <p className="text-sm text-gray-400">Save the date</p>
           </div>
 
           <div className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-colors">
             <MapPin className="w-8 h-8 text-wedding-gold mx-auto mb-4" />
-            <h3 className="font-serif text-xl mb-2">New York City</h3>
-            <p className="text-sm text-gray-400">St. Patrick's Cathedral</p>
+            <h3 className="font-serif text-xl mb-2">
+              La Romaine, San Fernando
+            </h3>
+            <p className="text-sm text-gray-400">St. Benedict's RC Church</p>
           </div>
 
           <div className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-colors">

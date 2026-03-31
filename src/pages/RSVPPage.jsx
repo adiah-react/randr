@@ -66,7 +66,7 @@ export function RSVPPage() {
             RSVP
           </h1>
           <p className="text-xl text-gray-500 font-light">
-            Please let us know if you can join us by August 1st.
+            Please let us know if you can join us by June 1st.
           </p>
         </ScrollReveal>
 

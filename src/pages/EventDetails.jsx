@@ -4,6 +4,7 @@ import { Button } from "../components/ui/Button";
 import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
 import { useInvitation } from "../hooks/useInvitation";
+
 export function EventDetails() {
   const { isAuthenticated, hasFullAccess } = useInvitation();
   return (
@@ -55,7 +56,6 @@ export function EventDetails() {
           </div>
 
           {/* Reception - Conditional Rendering */}
-          {}
           <div className="md:pl-16 text-center md:text-left">
             <ScrollReveal delay={0.4}>
               <div className="mb-8 inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-wedding-black mb-6">
@@ -83,16 +83,15 @@ export function EventDetails() {
                     </div>
                   </div>
                 ) : (
-                  // <div className="bg-gray-50 p-8 rounded-sm border border-gray-100 text-center">
-                  //   <p className="text-gray-500 italic mb-2">
-                  //     Ceremony Only Invitation
-                  //   </p>
-                  //   <p className="text-sm text-gray-400">
-                  //     This portion of the event is reserved for reception
-                  //     guests.
-                  //   </p>
-                  // </div>
-                  <></>
+                  <div className="bg-gray-50 p-8 rounded-sm border border-gray-100 text-center">
+                    <p className="text-gray-500 italic mb-2">
+                      Ceremony Only Invitation
+                    </p>
+                    <p className="text-sm text-gray-400">
+                      This portion of the event is reserved for reception
+                      guests.
+                    </p>
+                  </div>
                 )
               ) : (
                 <div className="bg-gray-50 p-8 rounded-sm border border-gray-100 flex flex-col items-center">
@@ -125,11 +124,11 @@ export function EventDetails() {
             women wear evening gowns or cocktail dresses.
           </p>
 
-          <h3 className="text-2xl font-serif mb-4">Accommodations</h3>
+          {/* <h3 className="text-2xl font-serif mb-4">Accommodations</h3>
           <p className="text-gray-600 text-lg font-light">
             A block of rooms has been reserved at The Bowery Hotel. Please
             mention the "Smith-Jones Wedding" when booking.
-          </p>
+          </p> */}
         </ScrollReveal>
       </div>
     </PageTransition>

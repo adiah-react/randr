@@ -25,7 +25,7 @@ export function InvitationLinkModal({
     setTimeout(() => setCopied(false), 2000);
   };
   const sendViaWhatsApp = () => {
-    const message = `💒 You're Invited!\n\nDear ${groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n🔗 ${link}\n\n🔑 Your access code: ${code}\n\nWe can't wait to celebrate with you!\n\nWith love,\nSarah & James`;
+    const message = `You're Invited!\n\nDear ${groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n ${link}\n\n Your access code: ${code}\n\nWe can't wait to celebrate with you!\n\nWith love,\nRhiannon and Rashaad`;
     const encoded = encodeURIComponent(message);
     const waUrl = phoneNumber
       ? `https://wa.me/${phoneNumber}?text=${encoded}`
