@@ -48,10 +48,7 @@ export function WelcomePage() {
           </h1>
           <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto mb-12">
             We are so excited to celebrate with you. You have been invited to
-            {hasFullAccess
-              ? " our full wedding celebration"
-              : " our wedding ceremony"}
-            .
+            our wedding day.
           </p>
         </motion.div>
 
