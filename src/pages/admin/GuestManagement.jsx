@@ -4,6 +4,7 @@ import {
   Link as LinkIcon,
   Loader2,
   MessageCircle,
+  Pencil,
   Phone,
   Plus,
   Search,
@@ -20,6 +21,7 @@ import {
   createInvitation,
   deleteInvitation as firebaseDeleteInvitation,
   getAllInvitations,
+  updateInvitation,
   updateInvitationPhone,
 } from "../../lib/firebaseService";
 function WhatsAppIcon({ size = 16 }) {
@@ -257,7 +259,10 @@ export function GuestManagement() {
   const [showBulkSend, setShowBulkSend] = useState(false);
   const [editingPhone, setEditingPhone] = useState(null);
   const [editPhoneValue, setEditPhoneValue] = useState("");
+  const [editingInvitation, setEditingInvitation] = useState(null);
   const [newInvite, setNewInvite] = useState(null);
+
+  // Fetch invitations from Firebase
   useEffect(() => {
     const fetchInvitations = async () => {
       const data = await getAllInvitations();
@@ -266,43 +271,100 @@ export function GuestManagement() {
     };
     fetchInvitations();
   }, []);
+
   const filteredInvitations = invitations.filter(
     (inv) =>
       inv.groupName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      inv.code.toLowerCase().includes(searchTerm.toLowerCase()),
+      inv.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      inv.guests.some((g) =>
+        g.name.toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
   );
-  const handleAddGuest = async (data) => {
-    const newInvitation = {
-      code: data.code,
-      groupName: data.groupName,
-      accessLevel: data.accessLevel,
-      phoneNumber: data.phoneNumber,
-      guests: Array(data.guestCount)
-        .fill(null)
-        .map((_, i) => ({
-          id: Date.now().toString() + i,
-          name: i === 0 ? data.groupName : `Guest ${i + 1}`,
+
+  const handleFormSubmit = async (data) => {
+    if (editingInvitation) {
+      // Edit mode: update existing invitation
+      const updatedGuests = data.guests.map((g) => {
+        // Preserve existing RSVP data if the guest already existed
+        const existingGuest = editingInvitation.guests.find(
+          (eg) => eg.id === g.id,
+        );
+        return {
+          id: g.id,
+          name: g.name,
+          rsvpStatus: existingGuest?.rsvpStatus || "pending",
+          dietaryNotes: existingGuest?.dietaryNotes || "",
+          mealPreference: existingGuest?.mealPreference || "",
+        };
+      });
+
+      const success = await updateInvitation(editingInvitation.code, {
+        groupName: data.groupName,
+        accessLevel: data.accessLevel,
+        guests: updatedGuests,
+      });
+      if (success) {
+        setInvitations(
+          invitations.map((inv) =>
+            inv.code === editingInvitation.code
+              ? {
+                  ...inv,
+                  groupName: data.groupName,
+                  accessLevel: data.accessLevel,
+                  guests: updatedGuests,
+                }
+              : inv,
+          ),
+        );
+      }
+      setEditingInvitation(null);
+    } else {
+      // Create mode
+      const newInvitation = {
+        code: data.code,
+        groupName: data.groupName,
+        accessLevel: data.accessLevel,
+        guests: data.guests.map((g) => ({
+          id: g.id,
+          name: g.name,
           rsvpStatus: "pending",
         })),
-    };
-    const success = await createInvitation(newInvitation);
-    if (success) {
-      setInvitations([...invitations, newInvitation]);
-      setNewInvite({
-        code: newInvitation.code,
-        groupName: newInvitation.groupName,
-        phoneNumber: newInvitation.phoneNumber,
-      });
+      };
+      const success = await createInvitation(newInvitation);
+      if (success) {
+        setInvitations([...invitations, newInvitation]);
+        setNewInvite({
+          code: newInvitation.code,
+          groupName: newInvitation.groupName,
+        });
+      }
     }
   };
+
+  const handleEdit = (inv) => {
+    setEditingInvitation(inv);
+    setIsFormOpen(true);
+  };
+
   const handleDelete = async (code) => {
-    if (confirm("Are you sure you want to delete this invitation?")) {
+    if (confirm("Are you sure you want to delete this invitation")) {
       const success = await firebaseDeleteInvitation(code);
       if (success) {
         setInvitations(invitations.filter((inv) => inv.code !== code));
       }
     }
   };
+
+  const handleFormClose = () => {
+    setIsFormOpen(false);
+    setEditingInvitation(null);
+  };
+
+  const handleOpenCreate = () => {
+    setEditingInvitation(null);
+    setIsFormOpen(true);
+  };
+
   const handleSavePhone = async (code) => {
     const cleaned = editPhoneValue.replace(/\s/g, "");
     const success = await updateInvitationPhone(code, cleaned);
@@ -321,7 +383,9 @@ export function GuestManagement() {
     setEditingPhone(null);
     setEditPhoneValue("");
   };
+
   const invitationsWithPhone = invitations.filter((inv) => inv.phoneNumber);
+
   return (
     <AdminLayout title="Guest Management">
       <div className="bg-white rounded-sm border border-gray-100 shadow-sm overflow-hidden">
@@ -376,6 +440,12 @@ export function GuestManagement() {
             <div className="p-12 text-center">
               <div className="animate-pulse">Loading...</div>
             </div>
+          ) : filteredInvitations.length === 0 ? (
+            <div className="p-12 text-center text-gray-500">
+              {searchTerm
+                ? "No results found."
+                : "No invitations yet. Add your first guest group."}
+            </div>
           ) : (
             <table className="w-full text-left">
               <thead className="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
@@ -395,8 +465,13 @@ export function GuestManagement() {
                     key={inv.code}
                     className="hover:bg-gray-50 transition-colors"
                   >
-                    <td className="px-6 py-4 font-medium text-gray-900">
-                      {inv.groupName}
+                    <td className="px-6 py-4">
+                      <div className="font-medium text-gray-900">
+                        {inv.groupName}
+                      </div>
+                      <div className="text-xs text-gray-400 mt-1">
+                        {inv.guests.map((g) => g.name).join(", ")}
+                      </div>
                     </td>
                     <td className="px-6 py-4 font-mono text-sm text-gray-600">
                       {inv.code}
@@ -490,7 +565,14 @@ export function GuestManagement() {
                             : "Send via WhatsApp (no number saved)"
                         }
                       >
-                        <MessageCircle size={18} />
+                        <MessageCircle size={16} />
+                      </button>
+                      <button
+                        onClick={() => handleEdit(inv)}
+                        className="text-gray-400 hover:text-wedding-gold transition-colors"
+                        title="Edit"
+                      >
+                        <Pencil size={16} />
                       </button>
                       <button
                         onClick={() =>
@@ -503,14 +585,14 @@ export function GuestManagement() {
                         className="text-gray-400 hover:text-wedding-gold transition-colors"
                         title="Get Link"
                       >
-                        <LinkIcon size={18} />
+                        <LinkIcon size={16} />
                       </button>
                       <button
                         onClick={() => handleDelete(inv.code)}
                         className="text-gray-400 hover:text-red-500 transition-colors"
                         title="Delete"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                       </button>
                     </td>
                   </tr>
@@ -524,7 +606,8 @@ export function GuestManagement() {
       <GuestForm
         isOpen={isFormOpen}
         onClose={() => setIsFormOpen(false)}
-        onSubmit={handleAddGuest}
+        onSubmit={handleFormSubmit}
+        editInvitation={editingInvitation}
       />
 
       <InvitationLinkModal
