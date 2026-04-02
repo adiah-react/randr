@@ -22,7 +22,7 @@ export function GuestRSVPCard({
       className="bg-white border border-gray-100 rounded-sm shadow-sm overflow-hidden"
     >
       {/* Header */}
-      <div className="px-8 pt-8 pb-6 flex items-center gap-4">
+      <div className="px-5 md:px-8 pt-6 md:pt-8 pb-4 md:pb-6 flex items-center gap-3 md:gap-4">
         <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
           <UserIcon className="w-5 h-5 text-gray-400" />
         </div>
@@ -30,11 +30,11 @@ export function GuestRSVPCard({
       </div>
 
       {/* RSVP Selection */}
-      <div className="px-8 pb-6">
+      <div className="px-5 md:px-8 pb-6">
         <p className="text-xs font-medium text-gray-400 uppercase tracking-widest mb-4">
           Will you be joining us?
         </p>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-3">
           <button
             type="button"
             onClick={() =>
@@ -89,7 +89,7 @@ export function GuestRSVPCard({
             }}
             className="overflow-hidden"
           >
-            <div className="px-8 pb-8 space-y-6 border-t border-gray-100 pt-6">
+            <div className="px-5 md:px-8 pb-6 md:pb-8 space-y-6 border-t border-gray-100 pt-6">
               {/* Meal Preference */}
               <div>
                 <label className="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-3">
@@ -168,7 +168,7 @@ export function GuestRSVPCard({
             }}
             className="overflow-hidden"
           >
-            <div className="px-8 pb-6 border-t border-gray-100 pt-4">
+            <div className="px-5 md:px-8 pb-6 border-t border-gray-100 pt-4">
               <p className="text-sm text-gray-400 italic">
                 We'll miss you! We hope to celebrate with you another time.
               </p>

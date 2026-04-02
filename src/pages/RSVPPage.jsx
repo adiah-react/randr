@@ -91,9 +91,9 @@ export function RSVPPage() {
         <div className="absolute inset-0 bg-white/92" />
       </div>
 
-      <div className="relative z-10 flex items-center justify-center min-h-screen py-28.px-4">
+      <div className="relative z-10 flex items-center justify-center min-h-screen py-28 px-4 md:px-6">
         <div className="w-full max-w-2xl mx-auto">
-          <ScrollReveal className="text-center mb-12">
+          <ScrollReveal className="text-center mb-12" width="100%">
             <h1 className="text-5xl md:text-6xl font-serif mb-4 text-wedding-black">
               RSVP
             </h1>
@@ -105,7 +105,7 @@ export function RSVPPage() {
           {/* Per-person RSVP Cards */}
           <div className="space-y-6 mb-10">
             {invitation.guests.map((guest, index) => (
-              <ScrollReveal key={guest.id} delay={index * 0.1}>
+              <ScrollReveal key={guest.id} delay={index * 0.1} width="100%">
                 <GuestRSVPCard
                   guestId={guest.id}
                   name={guest.name}
@@ -119,8 +119,8 @@ export function RSVPPage() {
           </div>
 
           {/* Song Request (per invitation) */}
-          <ScrollReveal delay={0.3}>
-            <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-8 mb-10">
+          <ScrollReveal delay={0.3} width="100%">
+            <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-5 md:p-8 mb-10">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
                   <MusicIcon className="w-5 h-5 text-wedding-gold" />
@@ -139,13 +139,14 @@ export function RSVPPage() {
           {/* Submit */}
           <ScrollReveal
             delay={0.4}
-            className="flex flex-col items-center gap-3"
+            className="flex flex-col items-stretch md:items-center gap-3"
+            width="100%"
           >
             <Button
               onClick={handleSubmit}
               disabled={!canSubmit || isSubmitting || isLoading}
               size="lg"
-              className="w-full md:w-auto min-w-[240px]"
+              className="w-full md:w-auto md:min-w-[240px]"
             >
               {isSubmitting ? "Submitting..." : "Submit RSVP"}
             </Button>
