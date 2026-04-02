@@ -1,12 +1,18 @@
-import { Gift } from "lucide-react";
+import { Gift, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AdminLayout } from "../../components/admin/AdminLayout";
-import { getContributions, getHoneymoonItems } from "../../lib/firebaseService";
+import {
+  addHoneymoonItem,
+  deleteContribution,
+  getContributions,
+  getHoneymoonItems,
+} from "../../lib/firebaseService";
 
 export function ContributionTracking() {
   const [contributions, setContributions] = useState([]);
   const [honeymoonItems, setHoneymoonItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       const [contribData, itemsData] = await Promise.all([
@@ -19,6 +25,31 @@ export function ContributionTracking() {
     };
     fetchData();
   }, []);
+
+  const handleAddItem = async (data) => {
+    const newItem = {
+      title: data.title,
+      description: data.description,
+      targetAmount: data.targetAmount,
+      currentAmount: 0,
+      icon: data.icon,
+      category: data.category,
+    };
+
+    const success = await addHoneymoonItem(newItem);
+    if (success) {
+      setHoneymoonItems((prev) => [...prev, { ...newItem, id: success.id }]);
+    }
+  };
+
+  const handleDelete = async (contributionId) => {
+    if (confirm("Are you sure you want to delete this contribution?")) {
+      const success = await deleteContribution(contributionId);
+      if (success) {
+        setContributions(contributions.filter((c) => c.id !== contributionId));
+      }
+    }
+  };
 
   // {
   //         title: "Flight Tickets",
@@ -54,6 +85,7 @@ export function ContributionTracking() {
                   <th className="px-6 py-4 font-medium">Item</th>
                   <th className="px-6 py-4 font-medium">Amount</th>
                   <th className="px-6 py-4 font-medium">Message</th>
+                  <th className="px-6 py-4 font-medium text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -76,6 +108,15 @@ export function ContributionTracking() {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
                       {contribution.message || "-"}
+                    </td>
+                    <td className="px-6 py-4 text-right space-x-2">
+                      <button
+                        onClick={() => handleDelete(contribution.id)}
+                        className="text-gray-400 hover:text-red-500 transition-colors"
+                        title="Delete"
+                      >
+                        <Trash2 size={18} />
+                      </button>
                     </td>
                   </tr>
                 ))}

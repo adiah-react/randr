@@ -290,6 +290,16 @@ export const addContribution = async (itemId, guestName, amount, message) => {
   }
 };
 
+export const deleteContribution = async (itemId) => {
+  try {
+    await deleteDoc(doc(db, CONTRIBUTIONS_COLLECTION, itemId));
+    return true;
+  } catch (error) {
+    console.error("Error deleting contribution:", error);
+    return false;
+  }
+};
+
 export const subscribeToHoneymoonItems = (callback) => {
   return onSnapshot(
     collection(db, HONEYMOON_ITEMS_COLLECTION),

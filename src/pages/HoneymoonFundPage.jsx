@@ -7,7 +7,6 @@ import { ThankYouModal } from "../components/ui/ThankYouModal";
 import { useInvitation } from "../hooks/useInvitation";
 import {
   addContribution,
-  seedInitialData,
   subscribeToHoneymoonItems,
 } from "../lib/firebaseService";
 export function HoneymoonFundPage() {
@@ -70,8 +69,6 @@ export function HoneymoonFundPage() {
           </ScrollReveal>
         </div>
       </section>
-
-      <button onClick={() => seedInitialData()}>Add some dummy data</button>
 
       {/* Fund Items Content */}
       <div className="pt-16 pb-24">
