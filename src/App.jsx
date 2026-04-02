@@ -25,6 +25,7 @@ import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminLogin } from "./pages/admin/AdminLogin";
 import { ContributionTracking } from "./pages/admin/ContributionTracking";
 import { GuestManagement } from "./pages/admin/GuestManagement";
+import HoneymoonManagement from "./pages/admin/HoneymoonManagement";
 import { RSVPSummary } from "./pages/admin/RSVPSummary";
 // Wrapper component to handle AnimatePresence with useLocation
 function AppContent() {
@@ -125,6 +126,15 @@ function AppContent() {
               element={
                 <AdminRoute>
                   <RSVPSummary />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/honeymoon"
+              element={
+                <AdminRoute>
+                  <HoneymoonManagement />
                 </AdminRoute>
               }
             />

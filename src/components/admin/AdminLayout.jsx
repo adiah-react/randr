@@ -4,6 +4,7 @@ import {
   Home,
   LayoutDashboard,
   LogOut,
+  Palmtree,
   Users,
 } from "lucide-react";
 import { Link, useLocation } from "react-router";
@@ -32,6 +33,11 @@ export function AdminLayout({ children, title }) {
       name: "Contributions",
       path: "/admin/contributions",
       icon: <Gift size={20} />,
+    },
+    {
+      name: "Honeymoon Fund",
+      path: "/admin/honeymoon",
+      icon: <Palmtree size={20} />,
     },
   ];
 

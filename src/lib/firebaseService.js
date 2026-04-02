@@ -111,6 +111,20 @@ export const updateInvitationRSVP = async (code, guestRSVPs, songRequest) => {
   }
 };
 
+export const updateInvitation = async (code, data) => {
+  try {
+    const docRef = doc(db, INVITATIONS_COLLECTION, code);
+    await updateDoc(docRef, {
+      ...data,
+      updatedAt: Timestamp.now(),
+    });
+    return true;
+  } catch (error) {
+    console.error("Error updating invitation:", error);
+    return false;
+  }
+};
+
 export const updateInvitationPhone = async (code, phoneNumber) => {
   try {
     const docRef = doc(db, INVITATIONS_COLLECTION, code);
@@ -208,20 +222,37 @@ const CONTRIBUTIONS_COLLECTION = "contributions";
 //       await addDoc(collection(db, HONEYMOON_ITEMS_COLLECTION), item);
 //     }
 
-export const addHoneymoonItem = async (item) => {
+export const createHoneymoonItem = async (item) => {
   try {
-    const docRef = await addDoc(collection(db, HONEYMOON_ITEMS_COLLECTION), {
-      ...item,
-      currentAmount: 0,
-    });
-    return {
-      id: docRef.id,
-      ...item,
-      currentAmount: 0,
-    };
+    const docRef = await addDoc(
+      collection(db, HONEYMOON_ITEMS_COLLECTION),
+      item,
+    );
+    return { id: docRef.id, ...item };
   } catch (error) {
-    console.error("Error adding honeymoon item:", error);
+    console.error("Error creating honeymoon item:", error);
     return null;
+  }
+};
+
+export const updateHoneymoonItem = async (id, data) => {
+  try {
+    const docRef = doc(db, HONEYMOON_ITEMS_COLLECTION, id);
+    await updateDoc(docRef, data);
+    return true;
+  } catch (error) {
+    console.error("Error updating honeymoon item:", error);
+    return false;
+  }
+};
+
+export const deleteHoneymoonItem = async (id) => {
+  try {
+    await deleteDoc(doc(db, HONEYMOON_ITEMS_COLLECTION, id));
+    return true;
+  } catch (error) {
+    console.error("Error deleting honeymoon item:", error);
+    return false;
   }
 };
 

@@ -62,8 +62,8 @@ export function HoneymoonFundPage() {
               Honeymoon Fund
             </h1>
             <p className="text-xl text-gray-100 font-light max-w-2xl mx-auto">
-              Your presence is the greatest git of all. However, if you wish to
-              honor us with a gift, a contribution towards our dream honeymoon
+              Your presence is the greatest gift of all. However, if you wish to
+              honour us with a gift, a contribution towards our dream honeymoon
               in Disneyworld would be deeply appreciated.
             </p>
           </ScrollReveal>

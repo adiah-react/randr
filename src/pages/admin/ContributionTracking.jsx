@@ -2,7 +2,6 @@ import { Gift, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AdminLayout } from "../../components/admin/AdminLayout";
 import {
-  addHoneymoonItem,
   deleteContribution,
   getContributions,
   getHoneymoonItems,
@@ -25,22 +24,6 @@ export function ContributionTracking() {
     };
     fetchData();
   }, []);
-
-  const handleAddItem = async (data) => {
-    const newItem = {
-      title: data.title,
-      description: data.description,
-      targetAmount: data.targetAmount,
-      currentAmount: 0,
-      icon: data.icon,
-      category: data.category,
-    };
-
-    const success = await addHoneymoonItem(newItem);
-    if (success) {
-      setHoneymoonItems((prev) => [...prev, { ...newItem, id: success.id }]);
-    }
-  };
 
   const handleDelete = async (contributionId) => {
     if (confirm("Are you sure you want to delete this contribution?")) {
