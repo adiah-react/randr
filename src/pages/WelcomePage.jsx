@@ -18,12 +18,8 @@ export function WelcomePage() {
     <PageTransition className="min-h-screen pt-32 pb-20 px-6 relative">
       {/* Background Image */}
       <div className="fixed inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/75" />
+        <img src="/hero.jpeg" alt="" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/90" />
       </div>
 
       <div className="max-w-4xl mx-auto text-center relative z-10 text-white">

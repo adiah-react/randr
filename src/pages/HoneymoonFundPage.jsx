@@ -7,6 +7,7 @@ import { ThankYouModal } from "../components/ui/ThankYouModal";
 import { useInvitation } from "../hooks/useInvitation";
 import {
   addContribution,
+  seedInitialData,
   subscribeToHoneymoonItems,
 } from "../lib/firebaseService";
 export function HoneymoonFundPage() {
@@ -50,11 +51,11 @@ export function HoneymoonFundPage() {
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?q=80&w=2138&auto=format&fit=crop"
+            src="/honeymoon.jpg"
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-bottom"
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="relative z-10 text-center text-white px-6">
           <ScrollReveal>
@@ -69,6 +70,8 @@ export function HoneymoonFundPage() {
           </ScrollReveal>
         </div>
       </section>
+
+      <button onClick={() => seedInitialData()}>Add some dummy data</button>
 
       {/* Fund Items Content */}
       <div className="pt-16 pb-24">

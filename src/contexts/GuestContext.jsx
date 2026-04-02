@@ -46,10 +46,15 @@ export function GuestProvider({ children }) {
     setInvitation(null);
     localStorage.removeItem("wedding_invite_code");
   };
-  const submitRSVP = async (guestRSVPs) => {
+  const submitRSVP = async (guestRSVPs, songRequest) => {
     if (!invitation) return false;
     setIsLoading(true);
-    const success = await updateInvitationRSVP(invitation.code, guestRSVPs);
+    const success = await updateInvitationRSVP(
+      invitation.code,
+      guestRSVPs,
+      songRequest,
+    );
+
     if (success) {
       // Refresh invitation data from Firebase
       const updated = await firebaseValidateCode(invitation.code);

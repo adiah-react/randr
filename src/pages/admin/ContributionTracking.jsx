@@ -2,6 +2,7 @@ import { Gift } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AdminLayout } from "../../components/admin/AdminLayout";
 import { getContributions, getHoneymoonItems } from "../../lib/firebaseService";
+
 export function ContributionTracking() {
   const [contributions, setContributions] = useState([]);
   const [honeymoonItems, setHoneymoonItems] = useState([]);
@@ -18,6 +19,16 @@ export function ContributionTracking() {
     };
     fetchData();
   }, []);
+
+  // {
+  //         title: "Flight Tickets",
+  //         description: "Round-trip flights to Santorini, Greece",
+  //         targetAmount: 2400,
+  //         currentAmount: 800,
+  //         icon: "✈️",
+  //         category: "travel",
+  //       },
+
   const getItemName = (itemId) => {
     return honeymoonItems.find((i) => i.id === itemId)?.title || "Unknown Item";
   };

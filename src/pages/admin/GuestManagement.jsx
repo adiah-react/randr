@@ -37,7 +37,7 @@ function BulkSendModal({ isOpen, onClose, invitations }) {
   const withoutPhone = invitations.filter((inv) => !inv.phoneNumber);
   const buildMessage = (inv) => {
     const link = `${window.location.origin}/invite/${inv.code}`;
-    return `💒 You're Invited!\n\nDear ${inv.groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n🔗 ${link}\n\n🔑 Your access code: ${inv.code}\n\nWith love,\nSarah & James`;
+    return `You're Invited!\n\nDear ${inv.groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n ${link}\n\n Your access code: ${inv.code}\n\nWith love,\nRhiannon & Rashaad`;
   };
   const handleSendAll = async () => {
     setIsSending(true);

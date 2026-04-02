@@ -14,26 +14,29 @@ const milestones = [
   {
     id: 2,
     title: "First Date",
-    date: "Fall 2018",
+    date: "September 2020",
     description:
-      "We met for coffee at The Daily Press. One cup turned into three, and before we knew it, the shop was closing. We walked through the park until sunset.",
+      "We started dating in the midst of the COVID-19 pandemic and began to share our love for movies over Skype calls. Our first date was at a pizza place called Bacco, we ate pizza in the car, listened to music and looked at the stars.",
     icon: <Coffee className="w-6 h-6 text-white" />,
+    image: "/first-date.jpeg",
   },
   {
     id: 3,
     title: "The Proposal",
-    date: "Winter 2023",
+    date: "August 2024",
     description:
-      "Under the snowy lights of the city where we first met, James got down on one knee. It was the easiest 'Yes' of Sarah's life.",
+      "Under a canopy of photos from the previous 5 years, surrounded by friends and family, Rashaad went down on bended knee. It was the easiest 'Yes' of Rhiannon's life.",
     icon: <Diamond className="w-6 h-6 text-white" />,
+    image: "/proposal.jpeg",
   },
   {
     id: 4,
     title: "The Big Day",
-    date: "Summer 2024",
+    date: "June 2026",
     description:
       "We can't wait to celebrate the beginning of our forever with all of our favorite people. The best is yet to come.",
     icon: <Calendar className="w-6 h-6 text-white" />,
+    image: "/big-day.jpeg",
   },
 ];
 
@@ -44,9 +47,9 @@ export function OurStory() {
       <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069&auto=format&fit=crop"
+            src="/our-story.jpeg"
             alt=""
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
@@ -99,12 +102,18 @@ export function OurStory() {
                   <div className="flex-1 w-full md:w-1/2 flex justify-center">
                     <ScrollReveal delay={0.4}>
                       <div className="relative group overflow-hidden rounded-sm shadow-xl">
-                        <div className="w-full md:w-[400px] h-[300px] bg-gray-100 relative overflow-hidden">
+                        {/* <div className="w-full md:w-[400px] h-[400px] bg-gray-100 relative overflow-hidden"> */}
+                        <div className="w-full md:w-[400px] h-[400px] bg-gray-100 relative overflow-hidden">
                           {/* Placeholder for actual images with black & white filter */}
                           <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-400 filter-bw">
-                            <span className="font-serif italic">
+                            {/* <span className="font-serif italic">
                               Photo: {item.title}
-                            </span>
+                            </span> */}
+                            <img
+                              className="w-full h-[400px]"
+                              src={item.image}
+                              alt=""
+                            />
                           </div>
 
                           {/* Overlay effect */}

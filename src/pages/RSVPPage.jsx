@@ -1,3 +1,4 @@
+import { MusicIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { GuestRSVPCard } from "../components/rsvp/GuestRSVPCard";
@@ -10,6 +11,7 @@ export function RSVPPage() {
   const { invitation, submitRSVP, isLoading } = useInvitation();
   const navigate = useNavigate();
   const [guestStates, setGuestStates] = useState({});
+  const [songRequest, setSongRequest] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
   // Initialize state from invitation
@@ -20,46 +22,65 @@ export function RSVPPage() {
         initialStates[guest.id] = {
           status: guest.rsvpStatus,
           dietaryNotes: guest.dietaryNotes || "",
+          mealPreference: guest.mealPreference || "",
         };
       });
       setGuestStates(initialStates);
     }
   }, [invitation]);
-  const handleGuestChange = (guestId, status, notes) => {
+
+  const handleGuestChange = (guestId, status, notes, meal) => {
     setGuestStates((prev) => ({
       ...prev,
       [guestId]: {
         status,
         dietaryNotes: notes,
+        mealPreference: meal,
       },
     }));
   };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
+
     const rsvpData = Object.entries(guestStates).map(([guestId, data]) => ({
       guestId,
       status: data.status === "pending" ? "attending" : data.status,
       dietaryNotes: data.dietaryNotes,
+      mealPreference: data.mealPreference,
     }));
-    // Filter out pending statuses to be safe, though UI should prevent this
+
     const validData = rsvpData.filter((d) => d.status !== "pending");
-    const success = await submitRSVP(validData);
+    const success = await submitRSVP(validData, songRequest);
     setIsSubmitting(false);
+
     if (success) {
       setShowModal(true);
     }
   };
+
   const handleModalClose = () => {
     setShowModal(false);
     navigate("/welcome");
   };
+
   if (!invitation) return null;
+
   // Check if all guests have a selection (not pending)
   const allSelected = Object.values(guestStates).every(
     (g) => g.status !== "pending",
   );
+
+  // Check attending guests have meal selected
+  const allMealsSelected = Object.values(guestStates).every(
+    (g) =>
+      g.status !== "attending" || (g.mealPreference && g.mealPreference !== ""),
+  );
+
+  const canSubmit = allSelected && allMealsSelected;
+
   return (
-    <PageTransition className="min-h-screen pt-24 pb-24 relative">
+    <PageTransition className="min-h-screen relative mt-24">
       {/* Background Image */}
       <div className="fixed inset-0">
         <img
@@ -70,42 +91,73 @@ export function RSVPPage() {
         <div className="absolute inset-0 bg-white/92" />
       </div>
 
-      <div className="max-w-3xl mx-auto px-6 relative z-10">
-        <ScrollReveal className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-serif mb-4 text-wedding-black">
-            RSVP
-          </h1>
-          <p className="text-xl text-gray-500 font-light">
-            Please let us know if you can join us by June 1st.
-          </p>
-        </ScrollReveal>
+      <div className="relative z-10 flex items-center justify-center min-h-screen py-28.px-4">
+        <div className="w-full max-w-2xl mx-auto">
+          <ScrollReveal className="text-center mb-12">
+            <h1 className="text-5xl md:text-6xl font-serif mb-4 text-wedding-black">
+              RSVP
+            </h1>
+            <p className="text-lg text-gray-500 font-light">
+              Please let us know if you can join us by June 1st.
+            </p>
+          </ScrollReveal>
 
-        <div className="space-y-6 mb-12">
-          {invitation.guests.map((guest, index) => (
-            <ScrollReveal key={guest.id} delay={index * 0.1}>
-              <GuestRSVPCard
-                guestId={guest.id}
-                name={guest.name}
-                status={guestStates[guest.id]?.status || "pending"}
-                dietaryNotes={guestStates[guest.id]?.dietaryNotes}
-                onChange={handleGuestChange}
+          {/* Per-person RSVP Cards */}
+          <div className="space-y-6 mb-10">
+            {invitation.guests.map((guest, index) => (
+              <ScrollReveal key={guest.id} delay={index * 0.1}>
+                <GuestRSVPCard
+                  guestId={guest.id}
+                  name={guest.name}
+                  status={guestStates[guest.id]?.status || "pending"}
+                  dietaryNotes={guestStates[guest.id]?.dietaryNotes}
+                  mealPreference={guestStates[guest.id]?.mealPreference}
+                  onChange={handleGuestChange}
+                />
+              </ScrollReveal>
+            ))}
+          </div>
+
+          {/* Song Request (per invitation) */}
+          <ScrollReveal delay={0.3}>
+            <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-8 mb-10">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
+                  <MusicIcon className="w-5 h-5 text-wedding-gold" />
+                </div>
+              </div>
+              <input
+                type="text"
+                value={songRequest}
+                onChange={(e) => setSongRequest(e.target.value)}
+                placeholder="What song will get you on the dance floor?"
+                className="w-full border border-gray-200 rounded-sm py-3 px-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-wedding-gold transition-colors bg-transparent text-sm"
               />
-            </ScrollReveal>
-          ))}
-        </div>
+            </div>
+          </ScrollReveal>
 
-        <ScrollReveal delay={0.4} className="flex justify-center">
-          <Button
-            onClick={handleSubmit}
-            disabled={!allSelected || isSubmitting || isLoading}
-            size="lg"
-            className="w-full md:w-auto min-w-[200px]"
+          {/* Submit */}
+          <ScrollReveal
+            delay={0.4}
+            className="flex flex-col items-center gap-3"
           >
-            {isSubmitting ? "Submitting..." : "Submit RSVP"}
-          </Button>
-        </ScrollReveal>
+            <Button
+              onClick={handleSubmit}
+              disabled={!canSubmit || isSubmitting || isLoading}
+              size="lg"
+              className="w-full md:w-auto min-w-[240px]"
+            >
+              {isSubmitting ? "Submitting..." : "Submit RSVP"}
+            </Button>
+            {!canSubmit && allSelected && !allMealsSelected && (
+              <p className="text-xs text-gray-400">
+                Please select a meal preference for all attending guests.
+              </p>
+            )}
+          </ScrollReveal>
 
-        <ThankYouModal isOpen={showModal} onClose={handleModalClose} />
+          <ThankYouModal isOpen={showModal} onClose={handleModalClose} />
+        </div>
       </div>
     </PageTransition>
   );

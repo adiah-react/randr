@@ -72,7 +72,7 @@ export const createInvitation = async (invitation) => {
   }
 };
 
-export const updateInvitationRSVP = async (code, guestRSVPs) => {
+export const updateInvitationRSVP = async (code, guestRSVPs, songRequest) => {
   try {
     const docRef = doc(db, INVITATIONS_COLLECTION, code);
     const docSnap = await getDoc(docRef);
@@ -87,15 +87,22 @@ export const updateInvitationRSVP = async (code, guestRSVPs) => {
           ...guest,
           rsvpStatus: update.status,
           dietaryNotes: update.dietaryNotes,
+          mealPreference: update.mealPreference || "",
         };
       }
       return guest;
     });
 
-    await updateDoc(docRef, {
+    const updateData = {
       guests: updatedGuests,
       updatedAt: Timestamp.now(),
-    });
+    };
+
+    if (songRequest !== undefined) {
+      updateData.songRequest = songRequest;
+    }
+
+    await updateDoc(docRef, updateData);
 
     return true;
   } catch (error) {
@@ -196,6 +203,27 @@ export const subscribeToGuestbook = (callback) => {
 
 const HONEYMOON_ITEMS_COLLECTION = "honeymoonItems";
 const CONTRIBUTIONS_COLLECTION = "contributions";
+
+// for (const item of honeymoonItems) {
+//       await addDoc(collection(db, HONEYMOON_ITEMS_COLLECTION), item);
+//     }
+
+export const addHoneymoonItem = async (item) => {
+  try {
+    const docRef = await addDoc(collection(db, HONEYMOON_ITEMS_COLLECTION), {
+      ...item,
+      currentAmount: 0,
+    });
+    return {
+      id: docRef.id,
+      ...item,
+      currentAmount: 0,
+    };
+  } catch (error) {
+    console.error("Error adding honeymoon item:", error);
+    return null;
+  }
+};
 
 export const getHoneymoonItems = async () => {
   try {
@@ -309,89 +337,91 @@ export const subscribeToAuthState = (callback) => {
 // SEED DATA FUNCTION (for initial setup)
 // ============================================
 
-// export const seedInitialData = async (): Promise<void> => {
+// export const seedInitialData = async () => {
 //   try {
 //     // Seed invitations
-//     const invitations: Omit<Invitation, 'createdAt' | 'updatedAt'>[] = [
-//     {
-//       code: 'WED2024',
-//       groupName: 'The Smith Family',
-//       accessLevel: 'full',
-//       guests: [
-//       { id: '1', name: 'John Smith', rsvpStatus: 'pending' },
-//       { id: '2', name: 'Jane Smith', rsvpStatus: 'pending' }]
-
-//     },
-//     {
-//       code: 'CEREMONY',
-//       groupName: 'Sarah Jones',
-//       accessLevel: 'ceremony',
-//       guests: [{ id: '3', name: 'Sarah Jones', rsvpStatus: 'pending' }]
-//     },
-//     {
-//       code: 'VIPGUEST',
-//       groupName: 'James Wilson & Partner',
-//       accessLevel: 'full',
-//       guests: [
-//       { id: '4', name: 'James Wilson', rsvpStatus: 'pending' },
-//       { id: '5', name: 'Guest', rsvpStatus: 'pending' }]
-
-//     }];
+//     const invitations = [
+//       {
+//         code: "WED2024",
+//         groupName: "The Smith Family",
+//         accessLevel: "full",
+//         guests: [
+//           { id: "1", name: "John Smith", rsvpStatus: "pending" },
+//           { id: "2", name: "Jane Smith", rsvpStatus: "pending" },
+//         ],
+//       },
+//       {
+//         code: "CEREMONY",
+//         groupName: "Sarah Jones",
+//         accessLevel: "ceremony",
+//         guests: [{ id: "3", name: "Sarah Jones", rsvpStatus: "pending" }],
+//       },
+//       {
+//         code: "VIPGUEST",
+//         groupName: "James Wilson & Partner",
+//         accessLevel: "full",
+//         guests: [
+//           { id: "4", name: "James Wilson", rsvpStatus: "pending" },
+//           { id: "5", name: "Guest", rsvpStatus: "pending" },
+//         ],
+//       },
+//     ];
 
 //     for (const inv of invitations) {
 //       await createInvitation(inv);
 //     }
 
 //     // Seed honeymoon items
-//     const honeymoonItems: Omit<HoneymoonItem, 'id'>[] = [
-//     {
-//       title: 'Flight Tickets',
-//       description: 'Round-trip flights to Santorini, Greece',
-//       targetAmount: 2400,
-//       currentAmount: 800,
-//       icon: '✈️',
-//       category: 'travel'
-//     },
-//     {
-//       title: 'Luxury Hotel Stay',
-//       description: '7 nights at a cliffside resort with ocean views',
-//       targetAmount: 3500,
-//       currentAmount: 1200,
-//       icon: '🏨',
-//       category: 'accommodation'
-//     },
-//     {
-//       title: 'Romantic Dinners',
-//       description: 'Fine dining experiences at local restaurants',
-//       targetAmount: 800,
-//       currentAmount: 400,
-//       icon: '🍽️',
-//       category: 'experiences'
-//     },
-//     {
-//       title: 'Sunset Sailing',
-//       description: 'Private sunset cruise around the caldera',
-//       targetAmount: 600,
-//       currentAmount: 0,
-//       icon: '⛵',
-//       category: 'activities'
-//     },
-//     {
-//       title: 'Wine Tasting Tour',
-//       description: 'Full-day tour of local wineries',
-//       targetAmount: 400,
-//       currentAmount: 200,
-//       icon: '🍷',
-//       category: 'experiences'
-//     },
-//     {
-//       title: 'Couples Spa Day',
-//       description: 'Relaxing spa treatments and massages',
-//       targetAmount: 500,
-//       currentAmount: 500,
-//       icon: '💆',
-//       category: 'experiences'
-//     }];
+//     const honeymoonItems = [
+//       {
+//         title: "Flight Tickets",
+//         description: "Round-trip flights to Santorini, Greece",
+//         targetAmount: 2400,
+//         currentAmount: 800,
+//         icon: "✈️",
+//         category: "travel",
+//       },
+//       {
+//         title: "Luxury Hotel Stay",
+//         description: "7 nights at a cliffside resort with ocean views",
+//         targetAmount: 3500,
+//         currentAmount: 1200,
+//         icon: "🏨",
+//         category: "accommodation",
+//       },
+//       {
+//         title: "Romantic Dinners",
+//         description: "Fine dining experiences at local restaurants",
+//         targetAmount: 800,
+//         currentAmount: 400,
+//         icon: "🍽️",
+//         category: "experiences",
+//       },
+//       {
+//         title: "Sunset Sailing",
+//         description: "Private sunset cruise around the caldera",
+//         targetAmount: 600,
+//         currentAmount: 0,
+//         icon: "⛵",
+//         category: "activities",
+//       },
+//       {
+//         title: "Wine Tasting Tour",
+//         description: "Full-day tour of local wineries",
+//         targetAmount: 400,
+//         currentAmount: 200,
+//         icon: "🍷",
+//         category: "experiences",
+//       },
+//       {
+//         title: "Couples Spa Day",
+//         description: "Relaxing spa treatments and massages",
+//         targetAmount: 500,
+//         currentAmount: 500,
+//         icon: "💆",
+//         category: "experiences",
+//       },
+//     ];
 
 //     for (const item of honeymoonItems) {
 //       await addDoc(collection(db, HONEYMOON_ITEMS_COLLECTION), item);
@@ -399,32 +429,33 @@ export const subscribeToAuthState = (callback) => {
 
 //     // Seed guestbook messages
 //     const messages = [
-//     {
-//       guestName: 'Aunt Marie',
-//       message:
-//       "Wishing you both a lifetime of love and happiness. I can't wait to celebrate with you!"
-//     },
-//     {
-//       guestName: 'The Johnson Family',
-//       message:
-//       'Congratulations on your engagement! You two are perfect for each other.'
-//     },
-//     {
-//       guestName: 'Sarah & Mike',
-//       message: "So excited for the big day! It's going to be beautiful."
-//     },
-//     {
-//       guestName: 'Grandma Wilson',
-//       message:
-//       'May your love story be as beautiful as your wedding day. Love you both!'
-//     }];
+//       {
+//         guestName: "Aunt Marie",
+//         message:
+//           "Wishing you both a lifetime of love and happiness. I can't wait to celebrate with you!",
+//       },
+//       {
+//         guestName: "The Johnson Family",
+//         message:
+//           "Congratulations on your engagement! You two are perfect for each other.",
+//       },
+//       {
+//         guestName: "Sarah & Mike",
+//         message: "So excited for the big day! It's going to be beautiful.",
+//       },
+//       {
+//         guestName: "Grandma Wilson",
+//         message:
+//           "May your love story be as beautiful as your wedding day. Love you both!",
+//       },
+//     ];
 
 //     for (const msg of messages) {
 //       await addGuestbookMessage(msg.guestName, msg.message);
 //     }
 
-//     console.log('Initial data seeded successfully!');
+//     console.log("Initial data seeded successfully!");
 //   } catch (error) {
-//     console.error('Error seeding data:', error);
+//     console.error("Error seeding data:", error);
 //   }
 // };

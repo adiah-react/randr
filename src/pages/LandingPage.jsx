@@ -13,11 +13,7 @@ export function LandingPage() {
       <section className="h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070&auto=format&fit=crop"
-            alt=""
-            className="w-full h-full object-cover"
-          />
+          <img src="/hero.jpeg" alt="" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/70" />
         </div>
 
@@ -79,7 +75,7 @@ export function LandingPage() {
             className="flex flex-col items-center space-y-6"
           >
             <p className="text-wedding-grey text-xl tracking-[0.2em] uppercase font-light">
-              June 20, 2026 • San Fernando
+              June 20, 2026
             </p>
 
             {/* Countdown Timer */}

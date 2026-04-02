@@ -38,8 +38,8 @@ function AppContent() {
           <Routes location={location} key={location.pathname}>
             {/* Public Routes */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/story" element={<OurStory />} />
-            <Route path="/details" element={<EventDetails />} />
+            {/* <Route path="/story" element={<OurStory />} />
+            <Route path="/details" element={<EventDetails />} /> */}
 
             {/* Auth Routes */}
             <Route path="/invite" element={<InvitationAccess />} />
@@ -51,6 +51,24 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <WelcomePage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/story"
+              element={
+                <ProtectedRoute>
+                  <OurStory />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/details"
+              element={
+                <ProtectedRoute>
+                  <EventDetails />
                 </ProtectedRoute>
               }
             />

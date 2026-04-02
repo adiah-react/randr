@@ -17,8 +17,11 @@ export function Navigation() {
   // Landing page and Welcome page are black bg (needs white text)
 
   const isDarkBg =
-    location.pathname === "/" || location.pathname === "/welcome";
-
+    location.pathname === "/" ||
+    location.pathname === "/welcome" ||
+    location.pathname === "/story" ||
+    location.pathname === "/details" ||
+    location.pathname === "/honeymoon";
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -52,19 +55,19 @@ export function Navigation() {
       name: "Home",
       path: "/",
     },
-    {
-      name: "Our Story",
-      path: "/story",
-    },
-    {
-      name: "Details",
-      path: "/details",
-    },
   ];
 
   // Add protected links if authenticated
   const protectedLinks = isAuthenticated
     ? [
+        {
+          name: "Our Story",
+          path: "/story",
+        },
+        {
+          name: "Details",
+          path: "/details",
+        },
         {
           name: "RSVP",
           path: "/rsvp",
