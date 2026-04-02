@@ -99,8 +99,12 @@ export function OurStory() {
                   </div>
 
                   {/* Image Side */}
-                  <div className="flex-1 w-full md:w-1/2 flex justify-center">
-                    <ScrollReveal delay={0.4}>
+                  <div className="flex-1 w-full md:w-1/2 flex justify-center px-4 md:px-0">
+                    <ScrollReveal
+                      delay={0.4}
+                      width="100%"
+                      className="w-full max-w-[400px]"
+                    >
                       <div className="relative group overflow-hidden rounded-sm shadow-xl">
                         {/* <div className="w-full md:w-[400px] h-[400px] bg-gray-100 relative overflow-hidden"> */}
                         <div className="w-full md:w-[400px] h-[400px] bg-gray-100 relative overflow-hidden">
