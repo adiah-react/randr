@@ -39,7 +39,7 @@ export function MusicToggle() {
   }, []);
 
   const toggleMusic = () => {
-    if (!audioRef.current || !isLoaded) return;
+    // if (!audioRef.current || !isLoaded) return;
     if (isPlaying) {
       audioRef.current.pause();
       setIsPlaying(false);
