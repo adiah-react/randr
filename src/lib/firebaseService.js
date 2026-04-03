@@ -88,6 +88,9 @@ export const updateInvitationRSVP = async (code, guestRSVPs, songRequest) => {
           rsvpStatus: update.status,
           dietaryNotes: update.dietaryNotes,
           mealPreference: update.mealPreference || "",
+          drinksAlcohol: update.drinksAlcohol ?? false,
+          // favoriteDrink: update.favoriteDrink || "",
+          favoriteDrink: update.drinksAlcohol ? update.favoriteDrink || "" : "",
         };
       }
       return guest;

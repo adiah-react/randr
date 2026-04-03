@@ -7,6 +7,7 @@ import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
 import { ThankYouModal } from "../components/ui/ThankYouModal";
 import { useInvitation } from "../hooks/useInvitation";
+
 export function RSVPPage() {
   const { invitation, submitRSVP, isLoading } = useInvitation();
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export function RSVPPage() {
   const [songRequest, setSongRequest] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
+
   // Initialize state from invitation
   useEffect(() => {
     if (invitation) {
@@ -23,19 +25,30 @@ export function RSVPPage() {
           status: guest.rsvpStatus,
           dietaryNotes: guest.dietaryNotes || "",
           mealPreference: guest.mealPreference || "",
+          drinksAlcohol: guest.drinksAlcohol,
+          favoriteDrink: guest.favoriteDrink || "",
         };
       });
       setGuestStates(initialStates);
     }
   }, [invitation]);
 
-  const handleGuestChange = (guestId, status, notes, meal) => {
+  const handleGuestChange = (
+    guestId,
+    status,
+    notes,
+    meal,
+    drinksAlcohol,
+    favoriteDrink,
+  ) => {
     setGuestStates((prev) => ({
       ...prev,
       [guestId]: {
         status,
         dietaryNotes: notes,
         mealPreference: meal,
+        drinksAlcohol,
+        favoriteDrink,
       },
     }));
   };
@@ -48,6 +61,8 @@ export function RSVPPage() {
       status: data.status === "pending" ? "attending" : data.status,
       dietaryNotes: data.dietaryNotes,
       mealPreference: data.mealPreference,
+      drinksAlcohol: data.drinksAlcohol,
+      favoriteDrink: data.favoriteDrink,
     }));
 
     const validData = rsvpData.filter((d) => d.status !== "pending");
@@ -66,6 +81,7 @@ export function RSVPPage() {
 
   if (!invitation) return null;
 
+  // TODO: This might not be what we want...
   // Check if all guests have a selection (not pending)
   const allSelected = Object.values(guestStates).every(
     (g) => g.status !== "pending",
@@ -112,6 +128,8 @@ export function RSVPPage() {
                   status={guestStates[guest.id]?.status || "pending"}
                   dietaryNotes={guestStates[guest.id]?.dietaryNotes}
                   mealPreference={guestStates[guest.id]?.mealPreference}
+                  drinksAlcohol={guestStates[guest.id]?.drinksAlcohol}
+                  favoriteDrink={guestStates[guest.id]?.favoriteDrink}
                   onChange={handleGuestChange}
                 />
               </ScrollReveal>
@@ -125,13 +143,28 @@ export function RSVPPage() {
                 <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
                   <MusicIcon className="w-5 h-5 text-wedding-gold" />
                 </div>
+                <div>
+                  <h3 className="text-lg font-serif text-wedding-black">
+                    Song Request
+                  </h3>
+                  <p className="text-xs text-gray-400">
+                    Help us build the perfect playlist
+                  </p>
+                </div>
               </div>
+              <label
+                htmlFor="song-request"
+                className="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2"
+              >
+                What song will get you on the dance floor?
+              </label>
               <input
+                id="song-request"
                 type="text"
                 value={songRequest}
                 onChange={(e) => setSongRequest(e.target.value)}
-                placeholder="What song will get you on the dance floor?"
                 className="w-full border border-gray-200 rounded-sm py-3 px-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-wedding-gold transition-colors bg-transparent text-sm"
+                placeholder="Bazooka?"
               />
             </div>
           </ScrollReveal>
