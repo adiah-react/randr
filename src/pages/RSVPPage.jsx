@@ -164,7 +164,7 @@ export function RSVPPage() {
                 value={songRequest}
                 onChange={(e) => setSongRequest(e.target.value)}
                 className="w-full border border-gray-200 rounded-sm py-3 px-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-wedding-gold transition-colors bg-transparent text-sm"
-                placeholder="Bazooka?"
+                placeholder="e.g. From Now On - The Greatest Showman"
               />
             </div>
           </ScrollReveal>
