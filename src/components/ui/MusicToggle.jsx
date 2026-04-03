@@ -53,7 +53,7 @@ export function MusicToggle() {
   };
 
   // Don't show if audio file isn't loaded
-  if (!isLoaded) return null;
+  // if (!isLoaded) return null;
   return (
     <div className="fixed bottom-6 right-6 z-40 flex items-center gap-3">
       {/* Text Hint */}
