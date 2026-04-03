@@ -20,6 +20,7 @@ import { OurStory } from "./pages/OurStory";
 import { RSVPPage } from "./pages/RSVPPage";
 import { WelcomePage } from "./pages/WelcomePage";
 // Admin Pages
+import { useEffect } from "react";
 import { AdminRoute } from "./components/admin/AdminRoute";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminLogin } from "./pages/admin/AdminLogin";
@@ -27,12 +28,23 @@ import { ContributionTracking } from "./pages/admin/ContributionTracking";
 import { GuestManagement } from "./pages/admin/GuestManagement";
 import HoneymoonManagement from "./pages/admin/HoneymoonManagement";
 import { RSVPSummary } from "./pages/admin/RSVPSummary";
+
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 // Wrapper component to handle AnimatePresence with useLocation
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   return (
     <div className="flex flex-col min-h-screen">
+      <ScrollToTop />
       {!isAdminRoute && <Navigation />}
       <main className="flex-grow">
         <AnimatePresence mode="wait">
