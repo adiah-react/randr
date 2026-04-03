@@ -1,4 +1,5 @@
-import { BuildingIcon, CheckIcon, CopyIcon } from "lucide-react";
+import { motion } from "framer-motion";
+import { BuildingIcon, CheckIcon, ChevronDown, CopyIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { ContributionModal } from "../components/honeymoon/ContributionModal";
 import { FundItem } from "../components/honeymoon/FundItem";
@@ -142,6 +143,22 @@ export function HoneymoonFundPage() {
             </div>
           </ScrollReveal>
         </div>
+        {/* Scroll Indicator */}
+        <motion.div
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+          }}
+          transition={{
+            delay: 1.2,
+            duration: 1,
+          }}
+          className="absolute -bottom-100 md:-bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce-slow"
+        >
+          <ChevronDown className="text-wedding-gold w-8 h-8 opacity-70" />
+        </motion.div>
       </section>
 
       {/* Fund Items Content */}
