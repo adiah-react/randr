@@ -114,7 +114,7 @@ export function OurStory() {
                               Photo: {item.title}
                             </span> */}
                             <img
-                              className="w-full h-[400px]"
+                              className="w-full object-cover"
                               src={item.image}
                               alt=""
                             />
