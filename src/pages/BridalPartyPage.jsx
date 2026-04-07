@@ -9,6 +9,7 @@ import jenna from "../assets/bridal-party/jenna.jpeg";
 import kefim from "../assets/bridal-party/kefim.jpeg";
 import nathaniel from "../assets/bridal-party/nathaniel.jpg";
 import sashta from "../assets/bridal-party/sashta.jpeg";
+import shania from "../assets/bridal-party/shania.jpeg";
 import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
 const bridesSide = [
@@ -46,6 +47,13 @@ const bridesSide = [
     role: "Bridesmaid",
     relationship: "",
     image: sashta,
+  },
+  {
+    id: "shania",
+    name: "Shania Ali",
+    role: "Bridesmaid",
+    relationship: "",
+    image: shania,
   },
 ];
 
