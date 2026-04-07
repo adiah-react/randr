@@ -8,8 +8,9 @@ export function Footer() {
         <p className="text-wedding-grey text-sm tracking-wide">
           &copy; {new Date().getFullYear()}{" "}
           <a
-            href="nathanieladiah.github.io"
+            href="https://nathanieladiah.github.io"
             className="text-wedding-gold hover:underline"
+            target="_blank"
           >
             nathanieladiah
           </a>{" "}
