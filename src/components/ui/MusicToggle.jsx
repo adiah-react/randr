@@ -62,7 +62,7 @@ export function MusicToggle() {
           <motion.div
             initial={{
               opacity: 0,
-              x: 10,
+              x: 30,
             }}
             animate={{
               opacity: 1,
@@ -70,10 +70,10 @@ export function MusicToggle() {
             }}
             exit={{
               opacity: 0,
-              x: 10,
+              x: 30,
             }}
             transition={{
-              duration: 0.3,
+              duration: 1.0,
             }}
             className="bg-white text-wedding-black text-sm font-medium px-4 py-2 rounded-full shadow-lg border border-gray-100 whitespace-nowrap"
           >
