@@ -65,7 +65,7 @@ export function HoneymoonFundPage() {
           <img
             src="/honeymoon.jpg"
             alt=""
-            className="w-full h-full object-cover object-bottom"
+            className="w-full h-full object-cover object-center"
           />
           <div className="absolute inset-0 bg-black/60" />
         </div>
@@ -77,15 +77,26 @@ export function HoneymoonFundPage() {
             <p className="text-xl text-gray-100 font-light max-w-2xl mx-auto">
               Your presence is the greatest gift of all. However, if you wish to
               honour us with a gift, a contribution towards our dream honeymoon
-              in Disneyworld would be deeply appreciated.
+              in Iceland would be deeply appreciated.
             </p>
           </ScrollReveal>
         </div>
       </section>
 
+      <ScrollReveal className="text-center mt-12" width="100%">
+        <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto mb-4">
+          If you'd like to contribute, please scroll down to choose an
+          experience and make your pledge. Once done, you can send your gift
+          using the account details below.
+        </p>
+        <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
+          Thank you for your love and support 🤍.
+        </p>
+      </ScrollReveal>
+
       {/* Bank Account Information */}
       <section className="pt-16 pb-24">
-        <div className="max-2-2xl mx-auto px-6">
+        <div className="max-w-2xl mx-auto px-6">
           <ScrollReveal className="w-full md:w-[50%] mx-auto">
             <div className="relative border border-gray-200 rounded-sm bg-gray-50 p-8 md:p-10">
               <div className="flex items-center gap-3 mb-6">
@@ -140,25 +151,25 @@ export function HoneymoonFundPage() {
                 Please use <span className="font-medium">your full name</span>{" "}
                 as the payment reference
               </p>
+              {/* Scroll Indicator */}
+              <motion.div
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                }}
+                transition={{
+                  delay: 1.2,
+                  duration: 1,
+                }}
+                className="absolute -bottom-100 md:-bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce-slow"
+              >
+                <ChevronDown className="text-wedding-gold w-8 h-8 opacity-70" />
+              </motion.div>
             </div>
           </ScrollReveal>
         </div>
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-          }}
-          transition={{
-            delay: 1.2,
-            duration: 1,
-          }}
-          className="absolute -bottom-100 md:-bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce-slow"
-        >
-          <ChevronDown className="text-wedding-gold w-8 h-8 opacity-70" />
-        </motion.div>
       </section>
 
       {/* Fund Items Content */}

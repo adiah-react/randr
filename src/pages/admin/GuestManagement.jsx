@@ -295,6 +295,7 @@ export function GuestManagement() {
           rsvpStatus: existingGuest?.rsvpStatus || "pending",
           dietaryNotes: existingGuest?.dietaryNotes || "",
           mealPreference: existingGuest?.mealPreference || "",
+          phoneNumber: existingGuest?.phoneNumber || "",
         };
       });
 
@@ -324,6 +325,7 @@ export function GuestManagement() {
         code: data.code,
         groupName: data.groupName,
         accessLevel: data.accessLevel,
+        phoneNumber: data.phoneNumber,
         guests: data.guests.map((g) => ({
           id: g.id,
           name: g.name,
