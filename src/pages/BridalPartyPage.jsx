@@ -1,8 +1,12 @@
-import { Sparkles } from "lucide-react";
 import adrian from "../assets/bridal-party/adrian.jpeg";
+import anilla from "../assets/bridal-party/anilla.jpeg";
+import christina from "../assets/bridal-party/christina.jpeg";
 import darion from "../assets/bridal-party/darion.jpeg";
 import darlene from "../assets/bridal-party/darlene.jpeg";
+import dejhan from "../assets/bridal-party/dejhan.jpeg";
+import freedom from "../assets/bridal-party/freedom.jpeg";
 import jenna from "../assets/bridal-party/jenna.jpeg";
+import kefim from "../assets/bridal-party/kefim.jpeg";
 import nathaniel from "../assets/bridal-party/nathaniel.jpg";
 import sashta from "../assets/bridal-party/sashta.jpeg";
 import { PageTransition } from "../components/ui/PageTransition";
@@ -11,88 +15,76 @@ const bridesSide = [
   {
     id: "darlene",
     name: "Darlene Auguste",
-    role: "Maid of Honor",
-    // relationship: "Sarah's college roommate",
-    // trivia: "Can recite every line from The Princess Bride",
-    // imageUrl:
-    //   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
+    role: "Maid of Honour",
+    relationship: "",
     image: darlene,
+  },
+  {
+    id: "christina",
+    name: "Christina Da Silva",
+    role: "Maid of Honour",
+    relationship: "",
+    image: christina,
+  },
+  {
+    id: "anilla",
+    name: "Anilla Pustam",
+    role: "Bridesmaid",
+    relationship: "",
+    image: anilla,
   },
   {
     id: "jenna",
     name: "Jenna-Leigh Lutchman",
     role: "Bridesmaid",
-    // relationship: "Sarah's sister",
-    // trivia: "Once baked 200 cupcakes for a charity bake sale in one night",
-    // imageUrl:
-    //   "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=400&auto=format&fit=crop",
+    relationship: "",
     image: jenna,
   },
   {
     id: "sashta",
     name: "Sashta Jebodh",
     role: "Bridesmaid",
-    // relationship: "Childhood best friend",
-    // trivia: "Has visited 32 countries and counting",
-    // imageUrl:
-    //   "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop",
+    relationship: "",
     image: sashta,
   },
-  // {
-  //   id: "rachel",
-  //   name: "Rachel Kim",
-  //   role: "Bridesmaid",
-  //   relationship: "Work bestie since day one",
-  //   trivia: "Secret talent: competitive crossword puzzler",
-  //   imageUrl:
-  //     "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop",
-  // },
 ];
+
 const groomsSide = [
   {
     id: "adrian",
     name: "Adrian Persad",
     role: "Best Man",
-    // relationship: "James's brother",
-    // trivia:
-    //   "Still holds the family record for most marshmallows fit in mouth (17)",
-    // imageUrl:
-    //   "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
+    // relationship: "",
     image: adrian,
   },
   {
     id: "darion",
     name: "Darion Cupid",
     role: "Best Man",
+    relationship: "",
     image: darion,
   },
   {
     id: "dejhan",
-    name: "DeJhan Aaron",
+    name: "Dé Jhan Aaron",
     role: "Groomsman",
     relationship: "Brother from the same mother",
     trivia: "Can solve a Rubik's cube in under 2 minutes",
-    // image: dejhan
+    image: dejhan,
   },
   {
     id: "freedom",
-    name: "Freedom",
+    name: "Freedom James",
     role: "Groomsman",
-    // relationship: "Teammate from the rugby club",
-    // trivia: "Has an encyclopedic knowledge of 90s sitcoms",
-    // imageUrl:
-    //   "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
-    // image: freedom
+    relationship: "",
+    image: freedom,
   },
   {
     id: "kefim",
     name: "Kefim Scott",
     role: "Groomsman",
-    // relationship: "Teammate from the rugby club",
-    // trivia: "Has an encyclopedic knowledge of 90s sitcoms",
-    // imageUrl:
-    //   "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
-    // image: kefim
+    relationship: "The reason we're all here",
+    image: kefim,
   },
   {
     id: "nathaniel",
@@ -125,18 +117,18 @@ const MemberCard = ({ member, delay }) => {
         <p className="text-xs uppercase tracking-widest text-wedding-gold font-medium mb-2">
           {member.role}
         </p>
-        <p className="text-sm text-gray-500 italic mb-4">
+        {/* <p className="text-sm text-gray-500 italic mb-4">
           {member.relationship}
-        </p>
+        </p> */}
 
-        <div className="mt-auto bg-gray-50 rounded-lg p4 border border-gray-100 relative w-full">
+        {/* <div className="mt-auto bg-gray-50 rounded-lg p4 border border-gray-100 relative w-full">
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-white rounded-full p-1 border-gray-100">
             <Sparkles size={14} className="text-wedding-gold" />
           </div>
           <p className="text-sm text-gray-600 leading-relaxed pt-2">
             {member.trivia}
           </p>
-        </div>
+        </div> */}
       </div>
     </ScrollReveal>
   );
