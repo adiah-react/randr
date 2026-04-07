@@ -25,7 +25,20 @@ export function InvitationLinkModal({
     setTimeout(() => setCopied(false), 2000);
   };
   const sendViaWhatsApp = () => {
-    const message = `You're Invited!\n\nDear ${groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n ${link}\n\n Your access code: ${code}\n\nWe can't wait to celebrate with you!\n\nWith love,\nRhiannon and Rashaad`;
+    // const message = `You're Invited!\n\nDear ${groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n ${link}\n\n Your access code: ${code}\n\nWe can't wait to celebrate with you!\n\nWith love,\nRhiannon and Rashaad`;
+    const message = `
+The time has come! 🎉
+You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! 💍✨
+We’ve put together a special website with all the details you’ll need:
+
+👉 ${link}
+
+When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, and a few nice touches we think you’ll enjoy.
+
+Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).
+
+We can’t wait to celebrate with you! ❤️
+`;
     const encoded = encodeURIComponent(message);
     const waUrl = phoneNumber
       ? `https://wa.me/${phoneNumber}?text=${encoded}`
