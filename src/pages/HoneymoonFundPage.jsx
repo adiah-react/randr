@@ -163,7 +163,7 @@ export function HoneymoonFundPage() {
                   delay: 1.2,
                   duration: 1,
                 }}
-                className="absolute -bottom-100 md:-bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce-slow"
+                className="absolute bottom left-1/2 transform -translate-x-1/2 animate-bounce-slow"
               >
                 <ChevronDown className="text-wedding-gold w-8 h-8 opacity-70" />
               </motion.div>
