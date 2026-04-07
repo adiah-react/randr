@@ -554,7 +554,7 @@ export function GuestManagement() {
                       <button
                         onClick={() => {
                           const inviteLink = `${window.location.origin}/invite/${inv.code}`;
-                          const message = `💒 You're Invited!\n\nDear ${inv.groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n🔗 ${inviteLink}\n\n🔑 Your access code: ${inv.code}\n\nWith love,\nSarah & James`;
+                          const message = `You're Invited!\n\nDear ${inv.groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n ${inviteLink}\n\n Your access code: ${inv.code}\n\nWe can't wait to celebrate with you!\n\nWith love,\nRhiannon and Rashaad`;
                           const waUrl = inv.phoneNumber
                             ? `https://wa.me/${inv.phoneNumber}?text=${encodeURIComponent(message)}`
                             : `https://wa.me/?text=${encodeURIComponent(message)}`;
