@@ -1,81 +1,106 @@
 import { Sparkles } from "lucide-react";
+import adrian from "../assets/bridal-party/adrian.jpeg";
+import darion from "../assets/bridal-party/darion.jpeg";
+import darlene from "../assets/bridal-party/darlene.jpeg";
+import jenna from "../assets/bridal-party/jenna.jpeg";
+import nathaniel from "../assets/bridal-party/nathaniel.jpg";
+import sashta from "../assets/bridal-party/sashta.jpeg";
 import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
 const bridesSide = [
   {
-    id: "emily",
-    name: "Emily Chen",
+    id: "darlene",
+    name: "Darlene Auguste",
     role: "Maid of Honor",
-    relationship: "Sarah's college roommate",
-    trivia: "Can recite every line from The Princess Bride",
-    imageUrl:
-      "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
+    // relationship: "Sarah's college roommate",
+    // trivia: "Can recite every line from The Princess Bride",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=400&auto=format&fit=crop",
+    image: darlene,
   },
   {
-    id: "olivia",
-    name: "Olivia Martinez",
+    id: "jenna",
+    name: "Jenna-Leigh Lutchman",
     role: "Bridesmaid",
-    relationship: "Sarah's sister",
-    trivia: "Once baked 200 cupcakes for a charity bake sale in one night",
-    imageUrl:
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=400&auto=format&fit=crop",
+    // relationship: "Sarah's sister",
+    // trivia: "Once baked 200 cupcakes for a charity bake sale in one night",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?q=80&w=400&auto=format&fit=crop",
+    image: jenna,
   },
   {
-    id: "priya",
-    name: "Priya Sharma",
+    id: "sashta",
+    name: "Sashta Jebodh",
     role: "Bridesmaid",
-    relationship: "Childhood best friend",
-    trivia: "Has visited 32 countries and counting",
-    imageUrl:
-      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop",
+    // relationship: "Childhood best friend",
+    // trivia: "Has visited 32 countries and counting",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop",
+    image: sashta,
   },
-  {
-    id: "rachel",
-    name: "Rachel Kim",
-    role: "Bridesmaid",
-    relationship: "Work bestie since day one",
-    trivia: "Secret talent: competitive crossword puzzler",
-    imageUrl:
-      "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop",
-  },
+  // {
+  //   id: "rachel",
+  //   name: "Rachel Kim",
+  //   role: "Bridesmaid",
+  //   relationship: "Work bestie since day one",
+  //   trivia: "Secret talent: competitive crossword puzzler",
+  //   imageUrl:
+  //     "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=400&auto=format&fit=crop",
+  // },
 ];
 const groomsSide = [
   {
-    id: "michael",
-    name: "Michael Thompson",
+    id: "adrian",
+    name: "Adrian Persad",
     role: "Best Man",
-    relationship: "James's brother",
-    trivia:
-      "Still holds the family record for most marshmallows fit in mouth (17)",
-    imageUrl:
-      "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
+    // relationship: "James's brother",
+    // trivia:
+    //   "Still holds the family record for most marshmallows fit in mouth (17)",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
+    image: adrian,
   },
   {
-    id: "david",
-    name: "David Okafor",
-    role: "Groomsman",
-    relationship: "College roommate & gym buddy",
-    trivia: "Makes the best jollof rice you've ever tasted",
-    imageUrl:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop",
+    id: "darion",
+    name: "Darion Cupid",
+    role: "Best Man",
+    image: darion,
   },
   {
-    id: "alex",
-    name: "Alex Rivera",
+    id: "dejhan",
+    name: "DeJhan Aaron",
     role: "Groomsman",
-    relationship: "Friends since kindergarten",
+    relationship: "Brother from the same mother",
     trivia: "Can solve a Rubik's cube in under 2 minutes",
-    imageUrl:
-      "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=400&auto=format&fit=crop",
+    // image: dejhan
   },
   {
-    id: "tom",
-    name: "Tom Bennett",
+    id: "freedom",
+    name: "Freedom",
     role: "Groomsman",
-    relationship: "Teammate from the rugby club",
-    trivia: "Has an encyclopedic knowledge of 90s sitcoms",
-    imageUrl:
-      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
+    // relationship: "Teammate from the rugby club",
+    // trivia: "Has an encyclopedic knowledge of 90s sitcoms",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
+    // image: freedom
+  },
+  {
+    id: "kefim",
+    name: "Kefim Scott",
+    role: "Groomsman",
+    // relationship: "Teammate from the rugby club",
+    // trivia: "Has an encyclopedic knowledge of 90s sitcoms",
+    // imageUrl:
+    //   "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=400&auto=format&fit=crop",
+    // image: kefim
+  },
+  {
+    id: "nathaniel",
+    name: "Nathaniel Adiah",
+    role: "Groomsman",
+    relationship: "Friends since Form one",
+    trivia: "Can fix your Wi-Fi but not his sleep schedule",
+    image: nathaniel,
   },
 ];
 
@@ -89,7 +114,7 @@ const MemberCard = ({ member, delay }) => {
       <div className="flex flex-col items-center w-full">
         <div className="w-40 h-40 md:w-48 md:h-48 rounded-full overflow-hidden mb-6 border-4 border-gray-50 shadow-lg">
           <img
-            src={member.imageUrl}
+            src={member.image}
             alt={member.name}
             className="w-full h-full object-cover"
           />
@@ -151,7 +176,7 @@ const BridalPartyPage = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 content-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8 content-center">
             {bridesSide.map((member, index) => (
               <MemberCard key={member.id} member={member} delay={index * 0.1} />
             ))}
@@ -169,7 +194,7 @@ const BridalPartyPage = () => {
             </div>
           </ScrollReveal>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-8">
             {groomsSide.map((member, index) => (
               <MemberCard key={member.id} member={member} delay={index * 0.1} />
             ))}
