@@ -20,6 +20,7 @@ export function Navigation() {
     location.pathname === "/" ||
     location.pathname === "/welcome" ||
     location.pathname === "/story" ||
+    location.pathname === "/party" ||
     location.pathname === "/details" ||
     location.pathname === "/honeymoon";
   useEffect(() => {
@@ -65,6 +66,10 @@ export function Navigation() {
           path: "/story",
         },
         {
+          name: "Wedding Party",
+          path: "/party",
+        },
+        {
           name: "Details",
           path: "/details",
         },
@@ -87,7 +92,7 @@ export function Navigation() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${bgClass}`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
+      <div className="max-w-8xl mx-auto px-6 md:px-12 flex justify-between items-center">
         {/* Logo */}
         <Link
           to="/"
