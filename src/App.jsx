@@ -28,6 +28,7 @@ import { ContributionTracking } from "./pages/admin/ContributionTracking";
 import { GuestManagement } from "./pages/admin/GuestManagement";
 import HoneymoonManagement from "./pages/admin/HoneymoonManagement";
 import { RSVPSummary } from "./pages/admin/RSVPSummary";
+import BridalPartyPage from "./pages/BridalPartyPage";
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -82,6 +83,15 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <EventDetails />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/party"
+              element={
+                <ProtectedRoute>
+                  <BridalPartyPage />
                 </ProtectedRoute>
               }
             />
