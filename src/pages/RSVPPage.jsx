@@ -66,20 +66,25 @@ export function RSVPPage() {
 
     const validData = rsvpData.filter((d) => d.status !== "pending");
     const success = await submitRSVP(validData, songRequest);
-    console.log(success);
     setIsSubmitting(false);
+    console.log(success);
 
     if (success) {
-      setShowModal(true);
+      // setShowModal(true);
       // Auto-redirect after 4 seconds
-      setTimeout(() => {
-        setShowModal(false);
-        navigate("/welcome", {
-          state: {
-            rsvpSubmitted: true,
-          },
-        });
-      }, 4000);
+      // setTimeout(() => {
+      //   setShowModal(false);
+      //   navigate("/welcome", {
+      //     state: {
+      //       rsvpSubmitted: true,
+      //     },
+      //   });
+      // }, 4000);
+      navigate("/welcome", {
+        state: {
+          rsvpSubmitted: true,
+        },
+      });
     }
   };
 
