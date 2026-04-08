@@ -33,7 +33,7 @@ export function EventDetails() {
     },
     { time: "4:00 PM", title: "Cocktails", description: "Drinks", icon: Wine },
     {
-      time: "5:00 PM",
+      time: "4:45 PM",
       title: "Introductions",
       description: "Meet the wedding party",
       icon: Users,
@@ -73,7 +73,7 @@ export function EventDetails() {
         <div className="absolute inset-0">
           <img
             // src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2098&auto=format&fit=crop"
-            src="/venue.png"
+            src="/venue.jpg"
             alt=""
             className="w-full h-full object-cover object-center"
           />
@@ -86,8 +86,8 @@ export function EventDetails() {
               Event Details
             </h1>
             <p className="text-xl text-gray-200 font-light max-w-2xl mx-auto">
-              We are honored to have you join us. Here is everything you need to
-              know about our special day.
+              We are honoured to have you join us. Here is everything you need
+              to know about our special day.
             </p>
           </ScrollReveal>
         </div>
