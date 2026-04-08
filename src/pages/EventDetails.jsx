@@ -91,7 +91,9 @@ export function EventDetails() {
     },
   ];
 
-  const visibleEvents = showReception ? timelineEvents : [timelineEvents[0]];
+  const visibleEvents = showReception
+    ? timelineEvents
+    : [timelineEvents[0], timelineEvents[1], timelineEvents[2]];
 
   return (
     <PageTransition className="bg-white text-wedding-black">
@@ -122,11 +124,15 @@ export function EventDetails() {
 
       {/* Event Details Content */}
       <div className="py-24">
-        <div className="max-w-8xl mx-auto px-6">
+        <div
+          className={`${showReception ? "max-w-8xl" : "max-w-4xl"} mx-auto px-6`}
+        >
           {showReception /* Two-column layout when reception is visible */ ? (
             <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-0">
               {/* Ceremony */}
-              <div className="flex-1 text-center flex justify-center">
+              <div
+                className={`flex-1 text-center flex ${showReception ? "justify-end md:mr-8" : "justify-center"}`}
+              >
                 <ScrollReveal delay={0.2}>
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-wedding-black mb-6">
                     <Clock className="w-8 h-8" />
@@ -161,7 +167,9 @@ export function EventDetails() {
               <div className="md:hidden w-24 h-px bg-gray-200 mx-auto"></div>
 
               {/* Reception */}
-              <div className="flex-1 text-center flex justify-center">
+              <div
+                className={`flex-1 text-center flex ${showReception ? "justify-start md:ml-8" : "justify-center"}`}
+              >
                 <ScrollReveal delay={0.4}>
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 text-wedding-black mb-6">
                     <Info className="w-8 h-8" />
@@ -265,90 +273,72 @@ export function EventDetails() {
               </div>
             </ScrollReveal> */}
 
-            {showReception ? (
-              <div className="relative max-w-8xl mx-auto px-4">
-                {/* Desktop Horizontal Line */}
-                <div className="hidden md:block absolute top-[4.5rem] lef-0 w-full h-px bg-gray-200 z-0"></div>
+            <div className="relative max-w-8xl mx-auto px-4">
+              {/* Desktop Horizontal Line */}
+              <div className="hidden md:block absolute top-[4.5rem] left-0 w-full h-px bg-gray-200 z-0"></div>
 
-                {/* Mobile Vertical Line */}
-                <div className="md:hidden absolute left-[2.25rem] top-4 bottom-4 w-px bg-gray-200 z-0"></div>
+              {/* Mobile Vertical Line */}
+              <div className="md:hidden absolute left-[2.25rem] top-4 bottom-4 w-px bg-gray-200 z-0"></div>
 
-                <div className="flex flex-col md:flex-row justify-between relative z-10 gap-12 md:gap-4">
-                  {visibleEvents.map((event, index) => {
-                    const Icon = event.icon;
-                    return (
-                      <ScrollReveal
-                        key={index}
-                        delay={index * 0.1}
-                        className="flex md:flex-col items-center md:items-center relative flex-1"
-                      >
-                        <div className="flex md:flex-col items-center md:items-center relative flex-1">
-                          {/* Mobile: Icon container on left */}
-                          <div className="md:hidden flex-shrink-0 w-16 h-16 bg-white border-2 border-wedding-gold rounded-full flex items-center justify-center mr-6 z-10">
-                            <Icon className="w-6 h-6 text-wedding-gold" />
-                          </div>
-
-                          {/* Desktop: Icon above */}
-                          <div className="hidden md:flex w-16 bg-white border-2 border-wedding-gold rounded-full items-center justify-center mb-6 z-10 shadow-sm">
-                            <Icon className="w-6 h-6 text-wedding-gold" />
-                          </div>
-
-                          {/* Content */}
-                          <div className="flex-1 md:text-center pt-1 md:pt-0">
-                            <p className="text-wedding-gold font-medium uppercase tracking-widest text-xs mb-1">
-                              {event.time}
-                            </p>
-                            <h3 className="text-xl font-serif text-wedding-black mb-1">
-                              {event.title}
-                            </h3>
-                            <p className="text-sm text-gray-500 font-light">
-                              {event.description}
-                            </p>
-                          </div>
+              <div className="flex flex-col md:flex-row justify-between relative z-10 gap-12 md:gap-4">
+                {visibleEvents.map((event, index) => {
+                  const Icon = event.icon;
+                  return (
+                    <ScrollReveal
+                      key={index}
+                      delay={index * 0.1}
+                      className="flex md:flex-col items-center md:items-center relative flex-1"
+                    >
+                      <div className="flex md:flex-col items-center md:items-center relative flex-1">
+                        {/* Mobile: Icon container on left */}
+                        <div className="md:hidden flex-shrink-0 w-16 h-16 bg-white border-2 border-wedding-gold rounded-full flex items-center justify-center mr-6 z-10">
+                          <Icon className="w-6 h-6 text-wedding-gold" />
                         </div>
-                      </ScrollReveal>
-                    );
-                  })}
-                </div>
+
+                        {/* Desktop: Icon above */}
+                        <div className="hidden md:flex w-16 bg-white border-2 border-wedding-gold rounded-full items-center justify-center mb-6 z-10 shadow-sm">
+                          <Icon className="w-6 h-6 text-wedding-gold" />
+                        </div>
+
+                        {/* Content */}
+                        <div className="flex-1 md:text-center pt-1 md:pt-0">
+                          <p className="text-wedding-gold font-medium uppercase tracking-widest text-xs mb-1">
+                            {event.time}
+                          </p>
+                          <h3 className="text-xl font-serif text-wedding-black mb-1">
+                            {event.title}
+                          </h3>
+                          <p className="text-sm text-gray-500 font-light">
+                            {event.description}
+                          </p>
+                        </div>
+                      </div>
+                    </ScrollReveal>
+                  );
+                })}
               </div>
-            ) : (
-              // Ceremony Only Layout
-              <div className="max-w-md mx-auto text-center">
-                <ScrollReveal>
-                  <div className="w-20 h-20 mx-auto bg-white border-2 border-wedding-gold rounded-full flex items-center justify-center mb-6 shadow-sm">
-                    <Church className="w-8 h-8 text-wedding-gold" />
-                  </div>
-                  <p className="text-wedding-gold font-medium uppercase tracking-widest text-sm mb-2">
-                    {visibleEvents[0].time}
-                  </p>
-                  <h3 className="text-2xl font-serif text-wedding-black mb-2">
-                    {visibleEvents[0].title}
-                  </h3>
-                  <p className="text-gray-500 font-light">
-                    {visibleEvents[0].description}
-                  </p>
-                </ScrollReveal>
-              </div>
-            )}
+            </div>
           </div>
 
           {/* Additional Info */}
-          <ScrollReveal
-            className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm"
-            delay={0.6}
-          >
-            <h3 className="text-2xl font-serif mb-4">Speeches & Toasts</h3>
-            <p className="text-gray-600 text-lg font-light">
-              If you'd like to give a short speech during the reception, please
-              let us know in advance. To keep the evening flowing, we'll have
-              time for a few speeches, but everyone is also invited to share
-              their love and advice through our{" "}
-              <a href="/guestbook" className="text-wedding-gold underline">
-                guest book
-              </a>{" "}
-              or audio guestbook .
-            </p>
-          </ScrollReveal>
+          {showReception && (
+            <ScrollReveal
+              className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm"
+              delay={0.6}
+            >
+              <h3 className="text-2xl font-serif mb-4">Speeches & Toasts</h3>
+              <p className="text-gray-600 text-lg font-light">
+                If you'd like to give a short speech during the reception,
+                please let us know in advance. To keep the evening flowing,
+                we'll have time for a few speeches, but everyone is also invited
+                to share their love and advice through our{" "}
+                <a href="/guestbook" className="text-wedding-gold underline">
+                  guest book
+                </a>{" "}
+                or audio guestbook .
+              </p>
+            </ScrollReveal>
+          )}
           <ScrollReveal className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm">
             <h3 className="text-2xl font-serif mb-4">Dress Code</h3>
             <p className="text-gray-600 text-lg font-light mb-8">
