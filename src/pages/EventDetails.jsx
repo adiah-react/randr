@@ -1,4 +1,16 @@
-import { Clock, Info, Lock, MapPin } from "lucide-react";
+import {
+  Church,
+  Clock,
+  Info,
+  Lock,
+  MapPin,
+  Mic,
+  Music,
+  PartyPopper,
+  Users,
+  UtensilsCrossed,
+  Wine,
+} from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../components/ui/Button";
 import { PageTransition } from "../components/ui/PageTransition";
@@ -11,6 +23,48 @@ export function EventDetails() {
   // Hide reception completely for ceremony-only guests
   // const showReception = !isAuthenticated || hasFullAccess;
   const showReception = hasFullAccess;
+
+  const timelineEvents = [
+    {
+      time: "2:00 PM",
+      title: "Church",
+      description: "Ceremony begins",
+      icon: Church,
+    },
+    { time: "4:00 PM", title: "Cocktails", description: "Drinks", icon: Wine },
+    {
+      time: "5:00 PM",
+      title: "Introductions",
+      description: "Meet the wedding party",
+      icon: Users,
+    },
+    {
+      time: "7:00 PM",
+      title: "Speeches",
+      description: "Toasts & tributes",
+      icon: Mic,
+    },
+    {
+      time: "7:30 PM",
+      title: "Dinner",
+      description: "Sit-down dinner",
+      icon: UtensilsCrossed,
+    },
+    {
+      time: "9:00 PM",
+      title: "Dancing",
+      description: "First dance & open floor",
+      icon: Music,
+    },
+    {
+      time: "10:00 PM",
+      title: "Party",
+      description: "Celebrate into the night",
+      icon: PartyPopper,
+    },
+  ];
+
+  const visibleEvents = showReception ? timelineEvents : [timelineEvents[0]];
 
   return (
     <PageTransition className="bg-white text-wedding-black">
@@ -41,7 +95,7 @@ export function EventDetails() {
 
       {/* Event Details Content */}
       <div className="py-24">
-        <div className="max-w-5xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6">
           {showReception /* Two-column layout when reception is visible */ ? (
             <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-0">
               {/* Ceremony */}
@@ -52,7 +106,7 @@ export function EventDetails() {
                   </div>
                   <h2 className="text-3xl font-serif mb-2">The Ceremony</h2>
                   <p className="text-wedding-gold font-medium uppercase tracking-widest text-sm mb-6">
-                    2:00 PM
+                    2:00 PM - 3:30 PM
                   </p>
 
                   <div className="space-y-3 text-gray-600 font-light text-lg">
@@ -172,6 +226,84 @@ export function EventDetails() {
               </ScrollReveal>
             </div>
           )}
+
+          {/* Schedule of the Day Timeline */}
+          <div className="mt-32 mb-12">
+            {/* <ScrollReveal>
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-serif text-wedding-black mb-4">
+                  Schedule of the Day
+                </h2>
+                <div className="w-16 h-px bg-wedding-gold mx-auto"></div>
+              </div>
+            </ScrollReveal> */}
+
+            {showReception ? (
+              <div className="relative max-w-8xl mx-auto px-4">
+                {/* Desktop Horizontal Line */}
+                <div className="hidden md:block absolute top-[4.5rem] lef-0 w-full h-px bg-gray-200 z-0"></div>
+
+                {/* Mobile Vertical Line */}
+                <div className="md:hidden absolute left-[2.25rem] top-4 bottom-4 w-px bg-gray-200 z-0"></div>
+
+                <div className="flex flex-col md:flex-row justify-between relative z-10 gap-12 md:gap-4">
+                  {visibleEvents.map((event, index) => {
+                    const Icon = event.icon;
+                    return (
+                      <ScrollReveal
+                        key={index}
+                        delay={index * 0.1}
+                        className="flex md:flex-col items-center md:items-center relative flex-1"
+                      >
+                        <div className="flex md:flex-col items-center md:items-center relative flex-1">
+                          {/* Mobile: Icon container on left */}
+                          <div className="md:hidden flex-shrink-0 w-16 h-16 bg-white border-2 border-wedding-gold rounded-full flex items-center justify-center mr-6 z-10">
+                            <Icon className="w-6 h-6 text-wedding-gold" />
+                          </div>
+
+                          {/* Desktop: Icon above */}
+                          <div className="hidden md:flex w-16 bg-white border-2 border-wedding-gold rounded-full items-center justify-center mb-6 z-10 shadow-sm">
+                            <Icon className="w-6 h-6 text-wedding-gold" />
+                          </div>
+
+                          {/* Content */}
+                          <div className="flex-1 md:text-center pt-1 md:pt-0">
+                            <p className="text-wedding-gold font-medium uppercase tracking-widest text-xs mb-1">
+                              {event.time}
+                            </p>
+                            <h3 className="text-xl font-serif text-wedding-black mb-1">
+                              {event.title}
+                            </h3>
+                            <p className="text-sm text-gray-500 font-light">
+                              {event.description}
+                            </p>
+                          </div>
+                        </div>
+                      </ScrollReveal>
+                    );
+                  })}
+                </div>
+              </div>
+            ) : (
+              // Ceremony Only Layout
+              <div className="max-w-md mx-auto text-center">
+                <ScrollReveal>
+                  <div className="w-20 h-20 mx-auto bg-white border-2 border-wedding-gold rounded-full flex items-center justify-center mb-6 shadow-sm">
+                    <Church className="w-8 h-8 text-wedding-gold" />
+                  </div>
+                  <p className="text-wedding-gold font-medium uppercase tracking-widest text-sm mb-2">
+                    {visibleEvents[0].time}
+                  </p>
+                  <h3 className="text-2xl font-serif text-wedding-black mb-2">
+                    {visibleEvents[0].title}
+                  </h3>
+                  <p className="text-gray-500 font-light">
+                    {visibleEvents[0].description}
+                  </p>
+                </ScrollReveal>
+              </div>
+            )}
+          </div>
 
           {/* Additional Info */}
           <ScrollReveal
