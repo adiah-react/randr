@@ -26,7 +26,7 @@ export function InvitationLinkModal({
     ``,
     `👉 ${link}`,
     ``,
-    `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, and a few nice touches we think you’ll enjoy.`,
+    `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, our special *honeymoon fund* and a few more nice touches we think you’ll enjoy.`,
     ``,
     `Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).`,
     ``,
