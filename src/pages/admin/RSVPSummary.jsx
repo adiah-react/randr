@@ -1,4 +1,4 @@
-import { Check, Download, HelpCircle, X } from "lucide-react";
+import { Check, Download, HelpCircle, Music, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AdminLayout } from "../../components/admin/AdminLayout";
 import { Button } from "../../components/ui/Button";
@@ -119,6 +119,47 @@ export function RSVPSummary() {
           </div>
         )}
       </div>
+
+      {/* Song Requests */}
+      {!isLoading && (
+        <div className="mt-8 bg-white rounded-sm border border-gray-100 shadow-sm overflow-hidden">
+          <div className="p-6 border-b border-gray-100 flex items-center gap-3">
+            <Music size={20} className="text-wedding-gold" />
+            <h2 className="text-lg font-serif text-gray-900">Song Requests</h2>
+          </div>
+
+          {invitations.filter((inv) => inv.songRequest?.trim()).length === 0 ? (
+            <div className="p-12 text-center text-gray-400 text-sm">
+              No song requests yet.
+            </div>
+          ) : (
+            <div className="divide-y divide-gray-100">
+              {invitations
+                .filter((inv) => inv.songRequest?.trim())
+                .map((inv) => (
+                  <div
+                    key={inv.code}
+                    className="px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  >
+                    <div>
+                      <p className="text-sm font-medium text-gray-900">
+                        {inv.groupName}
+                      </p>
+                      <p className="text-xs text-gray-400 mt-0.5">
+                        {inv.guests.map((g) => g.name).join(", ")}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-gray-700 italic">
+                        {inv.songRequest}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+      )}
     </AdminLayout>
   );
 }
