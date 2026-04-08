@@ -61,7 +61,7 @@ export function EventDetails() {
       description:
         // "We will have a few speeches during the reception, but everyone is also invited to share their love and advice through our guest book or audio guestbook.",
         // "If you'd like to give a short speech during the reception, please let us know in advance through [contact method]. To keep the evening flowing, we'll have time for a few speeches, but everyone is also invited to share their love and advice through our guest book or audio guestbook.",
-        "Short speeches from close family and friends. *",
+        "Short speeches from close family and friends.",
       icon: Mic,
     },
 
@@ -334,21 +334,10 @@ export function EventDetails() {
 
           {/* Additional Info */}
           <ScrollReveal
-            delay={0.6}
             className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm"
+            delay={0.6}
           >
-            <h3 className="text-2xl font-serif mb-4">Dress Code</h3>
-            <p className="text-gray-600 text-lg font-light mb-8">
-              {isCeremonyOnly
-                ? "We kindly ask that guests dress in formal or semi-formal attire."
-                : "Black Tie Optional. We ask that men wear tuxedos or dark suits and women wear evening gowns or cocktail dresses. Please see the colour palette below."}
-            </p>
-          </ScrollReveal>
-          <ScrollReveal className="max-w-xl mt-12 mx-auto">
-            <img src="/colour-palette.jpeg" alt="" className="object-cover" />
-          </ScrollReveal>
-          <ScrollReveal className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm">
-            <h3 className="text-2xl font-serif mb-4">* Speeches & Toasts</h3>
+            <h3 className="text-2xl font-serif mb-4">Speeches & Toasts</h3>
             <p className="text-gray-600 text-lg font-light">
               If you'd like to give a short speech during the reception, please
               let us know in advance. To keep the evening flowing, we'll have
@@ -359,6 +348,17 @@ export function EventDetails() {
               </a>{" "}
               or audio guestbook .
             </p>
+          </ScrollReveal>
+          <ScrollReveal className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm">
+            <h3 className="text-2xl font-serif mb-4">Dress Code</h3>
+            <p className="text-gray-600 text-lg font-light mb-8">
+              {isCeremonyOnly
+                ? "We kindly ask that guests dress in formal or semi-formal attire."
+                : "Black Tie Optional. We ask that men wear tuxedos or dark suits and women wear evening gowns or cocktail dresses. Please see the colour palette below."}
+            </p>
+          </ScrollReveal>
+          <ScrollReveal className="max-w-xl mt-12 mx-auto">
+            <img src="/colour-palette.jpeg" alt="" className="object-cover" />
           </ScrollReveal>
         </div>
       </div>
