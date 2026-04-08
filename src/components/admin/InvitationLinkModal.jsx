@@ -19,45 +19,29 @@ export function InvitationLinkModal({
 }) {
   const [copied, setCopied] = useState(false);
   const link = `${window.location.origin}/invite/${code}`;
+  const whatsappMessage = [
+    `The time has come! 🎉`,
+    `You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! 💍✨`,
+    `We’ve put together a special website with all the details you’ll need:`,
+    ``,
+    `👉 ${link}`,
+    ``,
+    `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, our special *honeymoon fund* and a few more nice touches we think you’ll enjoy.`,
+    ``,
+    `Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).`,
+    ``,
+    `We can’t wait to celebrate with you! ❤️`,
+    `Rashaad & Rhiannon`,
+  ].join("\n");
+
+  const whatsappUrl = phoneNumber
+    ? `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    : `https://wa.me/?text=${encodeURIComponent(whatsappMessage)}`;
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(link);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-  const sendViaWhatsApp = () => {
-    // const message = `You're Invited!\n\nDear ${groupName},\n\nWe are delighted to invite you to our wedding celebration. Please use the link below to view your personal invitation, RSVP, and access all the event details.\n\n ${link}\n\n Your access code: ${code}\n\nWe can't wait to celebrate with you!\n\nWith love,\nRhiannon and Rashaad`;
-    //     const message = `
-    // The time has come! 🎉
-    // You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! 💍✨
-    // We’ve put together a special website with all the details you’ll need:
-
-    // 👉 ${link}
-
-    // When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, and a few nice touches we think you’ll enjoy.
-
-    // Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).
-
-    // We can’t wait to celebrate with you! ❤️
-    // `;
-    const message = `
-The time has come! %f0%9f%8e%89
-You%e2%80%99re officially invited to celebrate the wedding of Rashaad %26 Rhiannon! %f0%9f%92%8d%e2%9c%a8
-We%e2%80%99ve put together a special website with all the details you%e2%80%99ll need%3a
-
-%f0%9f%91%89 %24%7blink%7d
-
-When you get a moment%2c take some time to explore the full page %e2%80%94 there are important details about the ceremony%2c reception%2c and a few nice touches we think you%e2%80%99ll enjoy.
-
-Please also don%e2%80%99t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating%2c meals%2c and overall logistics).
-
-We can%e2%80%99t wait to celebrate with you! %e2%9d%a4%ef%b8%8f
-`;
-
-    const encoded = encodeURIComponent(message);
-    const waUrl = phoneNumber
-      ? `https://wa.me/${phoneNumber}?text=${encoded}`
-      : `https://wa.me/?text=${encoded}`;
-    window.open(waUrl, "_blank");
   };
 
   return (
@@ -134,7 +118,26 @@ We can%e2%80%99t wait to celebrate with you! %e2%9d%a4%ef%b8%8f
             </div>
 
             <button
-              onClick={sendViaWhatsApp}
+              onClick={() => {
+                navigator.clipboard.writeText(
+                  [
+                    `The time has come! 🎉`,
+                    `You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! 💍✨`,
+                    `We’ve put together a special website with all the details you’ll need:`,
+                    ``,
+                    `👉 ${window.location.origin}/invite/${inv.code}`,
+                    ``,
+                    `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, and a few nice touches we think you’ll enjoy.`,
+                    ``,
+                    `Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).`,
+                    ``,
+                    `We can’t wait to celebrate with you! ❤️`,
+                    `Rashaad & Rhiannon`,
+                  ].join("\n"),
+                );
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
               className="w-full flex items-center justify-center gap-2.5 py-3 px-4 rounded-sm font-medium text-white transition-colors"
               style={{
                 backgroundColor: "#25D366",
@@ -147,14 +150,20 @@ We can%e2%80%99t wait to celebrate with you! %e2%9d%a4%ef%b8%8f
               }
             >
               <WhatsAppIcon size={20} />
-              {phoneNumber ? `Send to ${phoneNumber}` : "Send via WhatsApp"}
+              {/* {phoneNumber ? `Send to ${phoneNumber}` : "Send via WhatsApp"} */}
+              Copy WhatsApp Message
             </button>
 
-            {!phoneNumber && (
+            {/* {!phoneNumber && (
               <p className="text-xs text-gray-400 mt-2">
                 No phone number saved — message will open without a recipient
               </p>
-            )}
+            )} */}
+
+            {/* <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={18} />
+              Send via WhatsApp
+            </a> */}
           </motion.div>
         </div>
       )}
