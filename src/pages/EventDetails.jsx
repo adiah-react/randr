@@ -1,4 +1,5 @@
 import {
+  Camera,
   Church,
   Clock,
   Info,
@@ -7,7 +8,6 @@ import {
   Mic,
   Music,
   PartyPopper,
-  Users,
   UtensilsCrossed,
   Wine,
 } from "lucide-react";
@@ -26,39 +26,66 @@ export function EventDetails() {
 
   const timelineEvents = [
     {
+      time: "1:45 PM",
+      title: "Guests Seated",
+      description: "Please be seated for the ceremony by this time",
+      icon: Clock,
+    },
+    {
       time: "2:00 PM",
-      title: "Church",
+      title: "Ceremony",
       description: "Ceremony begins",
       icon: Church,
     },
-    { time: "4:00 PM", title: "Cocktails", description: "Drinks", icon: Wine },
+    {
+      time: "3:00 PM",
+      title: "Photos at the Church",
+      description: "Bridal party & guests who attended ceremony only",
+      icon: Camera,
+    },
+    {
+      time: "4:00 PM",
+      title: "Cocktail Hour",
+      description: "Drinks and appetizers served at the reception venue",
+      icon: Wine,
+    },
     {
       time: "4:45 PM",
-      title: "Introductions",
-      description: "Meet the wedding party",
-      icon: Users,
+      title: "Guests Seated",
+      description: "Arrival of the wedding party",
+      icon: Clock,
     },
     {
-      time: "7:00 PM",
-      title: "Speeches",
-      description: "Toasts & tributes",
+      time: "5:00 PM",
+      title: "Speeches & Toasts",
+      description:
+        // "We will have a few speeches during the reception, but everyone is also invited to share their love and advice through our guest book or audio guestbook.",
+        // "If you'd like to give a short speech during the reception, please let us know in advance through [contact method]. To keep the evening flowing, we'll have time for a few speeches, but everyone is also invited to share their love and advice through our guest book or audio guestbook.",
+        "Short speeches from close family and friends. *",
       icon: Mic,
     },
+
     {
-      time: "7:30 PM",
+      time: "6:00 PM",
       title: "Dinner",
       description: "Sit-down dinner",
       icon: UtensilsCrossed,
     },
     {
-      time: "9:00 PM",
-      title: "Dancing",
-      description: "First dance & open floor",
+      time: "7:00 PM",
+      title: "Special Dances",
+      description: "Groom & Mother, Bride & Father, Couple's First Dance",
       icon: Music,
     },
     {
-      time: "10:00 PM",
-      title: "Party",
+      time: "7:30 PM",
+      title: "T-Shirt Toss & Photos",
+      description: "",
+      icon: Camera,
+    },
+    {
+      time: "8:00 PM",
+      title: "Party Time",
       description: "Celebrate into the night",
       icon: PartyPopper,
     },
@@ -95,7 +122,7 @@ export function EventDetails() {
 
       {/* Event Details Content */}
       <div className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-8xl mx-auto px-6">
           {showReception /* Two-column layout when reception is visible */ ? (
             <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-0">
               {/* Ceremony */}
@@ -317,8 +344,21 @@ export function EventDetails() {
                 : "Black Tie Optional. We ask that men wear tuxedos or dark suits and women wear evening gowns or cocktail dresses. Please see the colour palette below."}
             </p>
           </ScrollReveal>
-          <ScrollReveal className="max-w-xl mt-12 mx-auto" delay={0.8}>
+          <ScrollReveal className="max-w-xl mt-12 mx-auto">
             <img src="/colour-palette.jpeg" alt="" className="object-cover" />
+          </ScrollReveal>
+          <ScrollReveal className="mt-24 max-w-2xl mx-auto text-center bg-gray-50 p-12 rounded-sm">
+            <h3 className="text-2xl font-serif mb-4">* Speeches & Toasts</h3>
+            <p className="text-gray-600 text-lg font-light">
+              If you'd like to give a short speech during the reception, please
+              let us know in advance. To keep the evening flowing, we'll have
+              time for a few speeches, but everyone is also invited to share
+              their love and advice through our{" "}
+              <a href="/guestbook" className="text-wedding-gold underline">
+                guest book
+              </a>{" "}
+              or audio guestbook .
+            </p>
           </ScrollReveal>
         </div>
       </div>
