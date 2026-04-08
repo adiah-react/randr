@@ -5,7 +5,6 @@ import { GuestRSVPCard } from "../components/rsvp/GuestRSVPCard";
 import { Button } from "../components/ui/Button";
 import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
-import { ThankYouModal } from "../components/ui/ThankYouModal";
 import { useInvitation } from "../hooks/useInvitation";
 
 export function RSVPPage() {
@@ -67,16 +66,28 @@ export function RSVPPage() {
 
     const validData = rsvpData.filter((d) => d.status !== "pending");
     const success = await submitRSVP(validData, songRequest);
+    console.log(success);
     setIsSubmitting(false);
 
     if (success) {
       setShowModal(true);
+      // Auto-redirect after 4 seconds
+      setTimeout(() => {
+        setShowModal(false);
+        navigate("/welcome", {
+          state: {
+            rsvpSubmitted: true,
+          },
+        });
+      }, 4000);
     }
   };
 
   const handleModalClose = () => {
     setShowModal(false);
-    navigate("/welcome");
+    navigate("/welcome", {
+      state: { rsvpSubmitted: true },
+    });
   };
 
   if (!invitation) return null;
@@ -190,7 +201,12 @@ export function RSVPPage() {
             )}
           </ScrollReveal>
 
-          <ThankYouModal isOpen={showModal} onClose={handleModalClose} />
+          {/* <ThankYouModal
+            isOpen={showModal}
+            onClose={handleModalClose}
+            title="RSVP Received!"
+            message="Thank you for letting us know. We're so excited to celebrate with you! You'll be redirected shortly"
+          /> */}
         </div>
       </div>
     </PageTransition>
