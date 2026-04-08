@@ -125,7 +125,7 @@ export function InvitationLinkModal({
                     `You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! 💍✨`,
                     `We’ve put together a special website with all the details you’ll need:`,
                     ``,
-                    `👉 ${window.location.origin}/invite/${inv.code}`,
+                    `👉 ${link}`,
                     ``,
                     `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, and a few nice touches we think you’ll enjoy.`,
                     ``,
@@ -151,7 +151,7 @@ export function InvitationLinkModal({
             >
               <WhatsAppIcon size={20} />
               {/* {phoneNumber ? `Send to ${phoneNumber}` : "Send via WhatsApp"} */}
-              Copy WhatsApp Message
+              {copied ? "Copied!" : "Copy WhatsApp Message"}
             </button>
 
             {/* {!phoneNumber && (

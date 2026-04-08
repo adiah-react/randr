@@ -587,57 +587,6 @@ export function GuestManagement() {
                         <LinkIcon size={16} />
                       </button>
                       <button
-                        // onClick={copyToClipboard}
-                        onClick={() => {
-                          navigator.clipboard.writeText(
-                            [
-                              `The time has come! 🎉`,
-                              `You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! 💍✨`,
-                              `We’ve put together a special website with all the details you’ll need:`,
-                              ``,
-                              `👉 ${window.location.origin}/invite/${inv.code}`,
-                              ``,
-                              `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, our special *honeymoon fund* and a few more nice touches we think you’ll enjoy.`,
-                              ``,
-                              `Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).`,
-                              ``,
-                              `We can’t wait to celebrate with you! ❤️`,
-                              `Rashaad & Rhiannon`,
-                            ].join("\n"),
-                          );
-                          setCopied(true);
-                          setTimeout(() => setCopied(false), 2000);
-                        }}
-                        className="text-gray-400 hover:text-wedding-gold transition-colors"
-                        title="Get Message"
-                      >
-                        <WhatsAppIcon size={16} />
-                      </button>
-                      {/* <a
-                        href={`https://wa.me/${inv.phoneNumber ? inv.phoneNumber : ""}?text=${encodeURIComponent(
-                          [
-                            `The time has come! \u1f389`,
-                            `You’re officially invited to celebrate the wedding of Rashaad & Rhiannon! \u1f48d\u2728`,
-                            `We’ve put together a special website with all the details you’ll need:`,
-                            ``,
-                            `\u1f449 ${window.location.origin}/invite/${inv.code}`,
-                            ``,
-                            `When you get a moment, take some time to explore the full page — there are important details about the ceremony, reception, and a few nice touches we think you’ll enjoy.`,
-                            ``,
-                            `Please also don’t forget to complete the RSVP section at the end. Your responses really help us plan everything properly (especially things like seating, meals, and overall logistics).`,
-                            ``,
-                            `We can’t wait to celebrate with you! \u2764\ufe0f`,
-                            `Rashaad & Rhiannon`,
-                          ].join("\n"),
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-[#25d366] transition-colors inline-block"
-                        title="Send via WhatsApp"
-                      >
-                        <WhatsAppIcon size={16} />
-                      </a> */}
-                      <button
                         onClick={() => handleDelete(inv.code)}
                         className="text-gray-400 hover:text-red-500 transition-colors"
                         title="Delete"

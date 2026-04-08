@@ -57,11 +57,8 @@ export function EventDetails() {
     },
     {
       time: "5:00 PM",
-      title: "Speeches & Toasts",
-      description:
-        // "We will have a few speeches during the reception, but everyone is also invited to share their love and advice through our guest book or audio guestbook.",
-        // "If you'd like to give a short speech during the reception, please let us know in advance through [contact method]. To keep the evening flowing, we'll have time for a few speeches, but everyone is also invited to share their love and advice through our guest book or audio guestbook.",
-        "Short speeches from close family and friends.",
+      title: "Reception Begins",
+      description: "Wedding party entrance, toasts & speeches and cake cutting",
       icon: Mic,
     },
 
