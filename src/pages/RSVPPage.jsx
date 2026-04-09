@@ -90,23 +90,20 @@ export function RSVPPage() {
 
     if (success) {
       setShowModal(true);
-      console.log(showModal);
 
-      // // Auto-redirect after 4 seconds
-      // setTimeout(() => {
-      //   setShowModal(false);
-      //   navigate("/welcome", {
-      //     state: {
-      //       rsvpSubmitted: true,
-      //     },
-      //   });
-      // }, 4000);
+      alert(
+        "RSVP submitted successfully! You will be redirected to the welcome page.",
+      );
 
-      navigate("/welcome", {
-        state: {
-          rsvpSubmitted: true,
-        },
-      });
+      // Auto-redirect after 2 seconds
+      setTimeout(() => {
+        setShowModal(false);
+        navigate("/welcome", {
+          state: {
+            rsvpSubmitted: true,
+          },
+        });
+      }, 3000);
     }
   };
 
