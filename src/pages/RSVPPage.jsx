@@ -5,6 +5,7 @@ import { GuestRSVPCard } from "../components/rsvp/GuestRSVPCard";
 import { Button } from "../components/ui/Button";
 import { PageTransition } from "../components/ui/PageTransition";
 import { ScrollReveal } from "../components/ui/ScrollReveal";
+import { ThankYouModal } from "../components/ui/ThankYouModal";
 import { useInvitation } from "../hooks/useInvitation";
 
 export function RSVPPage() {
@@ -14,10 +15,12 @@ export function RSVPPage() {
   const [songRequest, setSongRequest] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [shown, setShown] = useState(false);
 
   // Initialize state from invitation
   useEffect(() => {
-    if (invitation) {
+    if (invitation && !showModal) {
+      setSongRequest(invitation.songRequest || "");
       const initialStates = {};
       invitation.guests.forEach((guest) => {
         initialStates[guest.id] = {
@@ -31,6 +34,23 @@ export function RSVPPage() {
       setGuestStates(initialStates);
     }
   }, [invitation]);
+
+  // useEffect(() => {
+  //   if (showModal) {
+  //     const timer = setTimeout(async () => {
+  //       const updated = await firebaseValidateCode(invitation.code);
+  //       if (updated) {
+  //         setInvitation(updated);
+  //       }
+
+  //       navigate("/welcome", {
+  //         state: { rsvpSubmitted: true },
+  //       });
+  //     }, 4000);
+
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [showModal, navigate]);
 
   const handleGuestChange = (
     guestId,
@@ -67,11 +87,12 @@ export function RSVPPage() {
     const validData = rsvpData.filter((d) => d.status !== "pending");
     const success = await submitRSVP(validData, songRequest);
     setIsSubmitting(false);
-    console.log(success);
 
     if (success) {
-      // setShowModal(true);
-      // Auto-redirect after 4 seconds
+      setShowModal(true);
+      console.log(showModal);
+
+      // // Auto-redirect after 4 seconds
       // setTimeout(() => {
       //   setShowModal(false);
       //   navigate("/welcome", {
@@ -80,6 +101,7 @@ export function RSVPPage() {
       //     },
       //   });
       // }, 4000);
+
       navigate("/welcome", {
         state: {
           rsvpSubmitted: true,
@@ -206,12 +228,12 @@ export function RSVPPage() {
             )}
           </ScrollReveal>
 
-          {/* <ThankYouModal
+          <ThankYouModal
             isOpen={showModal}
             onClose={handleModalClose}
             title="RSVP Received!"
             message="Thank you for letting us know. We're so excited to celebrate with you! You'll be redirected shortly"
-          /> */}
+          />
         </div>
       </div>
     </PageTransition>
