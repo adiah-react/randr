@@ -78,6 +78,8 @@ export function RSVPSummary() {
                   <th className="px-6 py-4 font-medium">Group</th>
                   <th className="px-6 py-4 font-medium">Status</th>
                   <th className="px-6 py-4 font-medium">Dietary Notes</th>
+                  <th className="px-6 py-4 font-medium">Meal Preference</th>
+                  <th className="px-6 py-4 font-medium">Favourite Drink</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -111,6 +113,12 @@ export function RSVPSummary() {
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
                       {guest.dietaryNotes || "-"}
+                    </td>
+                    <td className="px-6 py-4 text-gray-600 text-sm">
+                      {guest.mealPreference || "-"}
+                    </td>
+                    <td className="px-6 py-4 text-gray-600 text-sm">
+                      {guest.favoriteDrink || "-"}
                     </td>
                   </tr>
                 ))}
