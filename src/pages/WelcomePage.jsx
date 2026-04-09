@@ -5,7 +5,6 @@ import {
   Gift,
   MapPin,
   MessageCircle,
-  Users,
 } from "lucide-react";
 import { Link } from "react-router";
 import { Button } from "../components/ui/Button";
@@ -42,9 +41,12 @@ export function WelcomePage() {
           <h1 className="text-5xl md:text-7xl font-serif mb-8 leading-tight">
             {invitation.groupName}
           </h1>
-          <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto mb-12">
+          <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto">
             We are so excited to celebrate with you. You have been invited to
             our wedding day.
+          </p>
+          <p className="text-gray-400 text-lg font-light max-w-2xl mx-auto mb-12">
+            This invitation applies only to those listed on the RSVP page.
           </p>
         </motion.div>
 
@@ -61,7 +63,7 @@ export function WelcomePage() {
             delay: 0.3,
             duration: 0.8,
           }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8"
         >
           <div className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-colors">
             <Calendar className="w-8 h-8 text-wedding-gold mx-auto mb-4" />
@@ -77,14 +79,14 @@ export function WelcomePage() {
             <p className="text-sm text-gray-400">St. Benedict's RC Church</p>
           </div>
 
-          <div className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-colors">
+          {/* <div className="bg-white/5 border border-white/10 p-8 rounded-sm hover:bg-white/10 transition-colors">
             <Users className="w-8 h-8 text-wedding-gold mx-auto mb-4" />
             <h3 className="font-serif text-xl mb-2">
               {invitation.guests.length} Guest
               {invitation.guests.length > 1 ? "s" : ""}
             </h3>
             <p className="text-sm text-gray-400">Included in this invite</p>
-          </div>
+          </div> */}
         </motion.div>
 
         {/* Action Cards */}
