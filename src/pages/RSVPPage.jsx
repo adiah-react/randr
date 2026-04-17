@@ -123,12 +123,13 @@ export function RSVPPage() {
   );
 
   // Check attending guests have meal selected
-  const allMealsSelected = Object.values(guestStates).every(
-    (g) =>
-      g.status !== "attending" || (g.mealPreference && g.mealPreference !== ""),
-  );
+  // const allMealsSelected = Object.values(guestStates).every(
+  //   (g) =>
+  //     g.status !== "attending" || (g.mealPreference && g.mealPreference !== ""),
+  // );
 
-  const canSubmit = allSelected && allMealsSelected;
+  // const canSubmit = allSelected && allMealsSelected;
+  const canSubmit = allSelected;
 
   return (
     <PageTransition className="min-h-screen relative mt-24">
@@ -166,43 +167,46 @@ export function RSVPPage() {
                   drinksAlcohol={guestStates[guest.id]?.drinksAlcohol}
                   favoriteDrink={guestStates[guest.id]?.favoriteDrink}
                   onChange={handleGuestChange}
+                  accessLevel={invitation.accessLevel}
                 />
               </ScrollReveal>
             ))}
           </div>
 
           {/* Song Request (per invitation) */}
-          <ScrollReveal delay={0.3} width="100%">
-            <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-5 md:p-8 mb-10">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
-                  <MusicIcon className="w-5 h-5 text-wedding-gold" />
+          {invitation.accessLevel === "full" && (
+            <ScrollReveal delay={0.3} width="100%">
+              <div className="bg-white border border-gray-100 rounded-sm shadow-sm p-5 md:p-8 mb-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center flex-shrink-0">
+                    <MusicIcon className="w-5 h-5 text-wedding-gold" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-serif text-wedding-black">
+                      Song Request
+                    </h3>
+                    <p className="text-xs text-gray-400">
+                      Help us build the perfect playlist
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-lg font-serif text-wedding-black">
-                    Song Request
-                  </h3>
-                  <p className="text-xs text-gray-400">
-                    Help us build the perfect playlist
-                  </p>
-                </div>
+                <label
+                  htmlFor="song-request"
+                  className="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2"
+                >
+                  What song will get you on the dance floor?
+                </label>
+                <input
+                  id="song-request"
+                  type="text"
+                  value={songRequest}
+                  onChange={(e) => setSongRequest(e.target.value)}
+                  className="w-full border border-gray-200 rounded-sm py-3 px-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-wedding-gold transition-colors bg-transparent text-sm"
+                  placeholder="e.g. From Now On - The Greatest Showman"
+                />
               </div>
-              <label
-                htmlFor="song-request"
-                className="block text-xs font-medium text-gray-400 uppercase tracking-widest mb-2"
-              >
-                What song will get you on the dance floor?
-              </label>
-              <input
-                id="song-request"
-                type="text"
-                value={songRequest}
-                onChange={(e) => setSongRequest(e.target.value)}
-                className="w-full border border-gray-200 rounded-sm py-3 px-4 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-wedding-gold transition-colors bg-transparent text-sm"
-                placeholder="e.g. From Now On - The Greatest Showman"
-              />
-            </div>
-          </ScrollReveal>
+            </ScrollReveal>
+          )}
 
           {/* Submit */}
           <ScrollReveal
