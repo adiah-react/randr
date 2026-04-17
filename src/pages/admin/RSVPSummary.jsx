@@ -1,4 +1,4 @@
-import { Check, Download, HelpCircle, Music, X } from "lucide-react";
+import { Check, Download, HelpCircle, Music, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AdminLayout } from "../../components/admin/AdminLayout";
 import { Button } from "../../components/ui/Button";
@@ -7,6 +7,9 @@ import { getAllInvitations } from "../../lib/firebaseService";
 export function RSVPSummary() {
   const [invitations, setInvitations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [accessLevelFilter, setAccessLevelFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState(""); // pending, attending, declined
   useEffect(() => {
     const fetchData = async () => {
       const data = await getAllInvitations();
@@ -23,6 +26,20 @@ export function RSVPSummary() {
       accessLevel: inv.accessLevel,
     })),
   );
+
+  const filteredGuests = allGuests.filter((guest) => {
+    const matchesSearch =
+      guest.groupName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      guest.name.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesAccessLevel =
+      accessLevelFilter === "" || guest.accessLevel === accessLevelFilter;
+    const matchesStatus =
+      statusFilter === "" || guest.rsvpStatus === statusFilter;
+    return matchesSearch && matchesAccessLevel && matchesStatus;
+  });
+
+  console.log(filteredGuests);
+
   const downloadCSV = () => {
     const headers = [
       "Name",
@@ -53,7 +70,41 @@ export function RSVPSummary() {
   };
   return (
     <AdminLayout title="RSVP Summary">
-      <div className="flex justify-end mb-6">
+      {/* Toolbar */}
+      <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between gap-4">
+        <div className="relative flex-grow max-w-md">
+          <Search
+            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={18}
+          />
+
+          <input
+            type="text"
+            placeholder="Search guests or codes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-sm focus:outline-none focus:border-wedding-gold"
+          />
+        </div>
+        <select
+          className="border border-gray-200 px-4 py-2 rounded-sm focus:outline-none focus:border-wedding-gold"
+          value={accessLevelFilter}
+          onChange={(e) => setAccessLevelFilter(e.target.value)}
+        >
+          <option value="">All Access Levels</option>
+          <option value="full">Full Access</option>
+          <option value="cermony">Ceremony Only Access</option>
+        </select>
+        <select
+          className="border border-gray-200 px-4 py-2 rounded-sm focus:outline-none focus:border-wedding-gold"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">All Statuses</option>
+          <option value="attending">Attending</option>
+          <option value="declined">Declined</option>
+          <option value="pending">Pending</option>
+        </select>
         <Button
           onClick={downloadCSV}
           variant="outline"
@@ -83,7 +134,7 @@ export function RSVPSummary() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {allGuests.map((guest) => (
+                {filteredGuests.map((guest) => (
                   <tr
                     key={guest.id}
                     className="hover:bg-gray-50 transition-colors"
