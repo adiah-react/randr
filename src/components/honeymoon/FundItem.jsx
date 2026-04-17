@@ -36,12 +36,12 @@ export function FundItem({ item, onContribute, index }) {
 
       <div className="space-y-2 mb-6">
         <div className="flex justify-between text-xs uppercase tracking-widest text-gray-400">
-          <span>${item.currentAmount.toLocaleString()} raised</span>
+          <span>TT${item.currentAmount.toLocaleString()} raised</span>
           <span>{percentage}%</span>
         </div>
         <ProgressBar current={item.currentAmount} target={item.targetAmount} />
         <div className="text-right text-xs text-gray-400">
-          Goal: ${item.targetAmount.toLocaleString()}
+          Goal: TT${item.targetAmount.toLocaleString()}
         </div>
       </div>
 

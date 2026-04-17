@@ -94,7 +94,7 @@ export function ContributionModal({ isOpen, onClose, item, onSubmit }) {
                 {item.title}
               </h2>
               <p className="text-gray-500 text-sm mt-1">
-                Goal: ${item.targetAmount} • Remaining: ${remaining}
+                Goal: TT${item.targetAmount} • Remaining: TT${remaining}
               </p>
             </div>
 
@@ -106,7 +106,7 @@ export function ContributionModal({ isOpen, onClose, item, onSubmit }) {
                   className={`p-3 border rounded-sm text-sm transition-all ${selectedOption === "full" ? "bg-wedding-gold text-white border-wedding-gold" : "border-gray-200 hover:border-wedding-gold text-gray-700"}`}
                 >
                   <div className="font-medium">Full Amount</div>
-                  <div className="text-xs opacity-80">${remaining}</div>
+                  <div className="text-xs opacity-80">TT${remaining}</div>
                 </button>
 
                 <button
@@ -116,7 +116,7 @@ export function ContributionModal({ isOpen, onClose, item, onSubmit }) {
                   className={`p-3 border rounded-sm text-sm transition-all ${selectedOption === "half" ? "bg-wedding-gold text-white border-wedding-gold" : "border-gray-200 hover:border-wedding-gold text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"}`}
                 >
                   <div className="font-medium">Half</div>
-                  <div className="text-xs opacity-80">${half}</div>
+                  <div className="text-xs opacity-80">TT${half}</div>
                 </button>
 
                 <button
@@ -126,7 +126,7 @@ export function ContributionModal({ isOpen, onClose, item, onSubmit }) {
                   className={`p-3 border rounded-sm text-sm transition-all ${selectedOption === "quarter" ? "bg-wedding-gold text-white border-wedding-gold" : "border-gray-200 hover:border-wedding-gold text-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"}`}
                 >
                   <div className="font-medium">Quarter</div>
-                  <div className="text-xs opacity-80">${quarter}</div>
+                  <div className="text-xs opacity-80">TT${quarter}</div>
                 </button>
 
                 <button
@@ -155,7 +155,7 @@ export function ContributionModal({ isOpen, onClose, item, onSubmit }) {
                   />
 
                   <p className="text-xs text-gray-400 mt-1">
-                    Minimum $10, Maximum ${remaining}
+                    Minimum TT$10, Maximum TT${remaining}
                   </p>
                 </div>
               )}
@@ -186,7 +186,7 @@ export function ContributionModal({ isOpen, onClose, item, onSubmit }) {
                 className="w-full"
                 disabled={!isValid || isSubmitting}
               >
-                {isSubmitting ? "Processing..." : `Pledge $${amount || 0}`}
+                {isSubmitting ? "Processing..." : `Pledge TT$${amount || 0}`}
               </Button>
             </form>
           </motion.div>

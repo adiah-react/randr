@@ -178,7 +178,7 @@ export function HoneymoonFundPage() {
           <ScrollReveal className="text-center mb-16 mx-auto">
             <div className="inline-block bg-gray-50 px-6 py-3 rounded-full border border-gray-100">
               <span className="font-serif text-lg text-wedding-black">
-                ${totalRaised.toLocaleString()} raised of $
+                TT${totalRaised.toLocaleString()} raised of TT$
                 {totalGoal.toLocaleString()} goal
               </span>
             </div>
@@ -219,7 +219,7 @@ export function HoneymoonFundPage() {
         isOpen={showThankYou}
         onClose={() => setShowThankYou(false)}
         title="Thank You!"
-        message={`We are incredibly grateful for your generous pledge of $${lastContributionAmount} towards our ${selectedItem?.title.toLowerCase()}.`}
+        message={`We are incredibly grateful for your generous pledge of TT$${lastContributionAmount} towards our ${selectedItem?.title.toLowerCase()}.`}
       />
     </PageTransition>
   );
