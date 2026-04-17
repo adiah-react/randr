@@ -275,6 +275,7 @@ export function GuestManagement() {
   const [editPhoneValue, setEditPhoneValue] = useState("");
   const [editingInvitation, setEditingInvitation] = useState(null);
   const [newInvite, setNewInvite] = useState(null);
+  const [accessLevelFilter, setAccessLevelFilter] = useState(""); // 'full' / 'cermony'
 
   // Fetch invitations from Firebase
   useEffect(() => {
@@ -286,14 +287,25 @@ export function GuestManagement() {
     fetchInvitations();
   }, []);
 
-  const filteredInvitations = invitations.filter(
-    (inv) =>
+  // const filteredInvitations = invitations.filter(
+  //   (inv) =>
+  //     inv.groupName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     inv.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     inv.guests.some((g) =>
+  //       g.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  //     ),
+  // );
+  const filteredInvitations = invitations.filter((inv) => {
+    const matchesSearch =
       inv.groupName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       inv.code.toLowerCase().includes(searchTerm.toLowerCase()) ||
       inv.guests.some((g) =>
         g.name.toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
-  );
+      );
+    const matchesAccessLevel =
+      accessLevelFilter === "" || inv.accessLevel === accessLevelFilter;
+    return matchesSearch && matchesAccessLevel;
+  });
 
   const handleFormSubmit = async (data) => {
     if (editingInvitation) {
@@ -421,6 +433,15 @@ export function GuestManagement() {
               className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-sm focus:outline-none focus:border-wedding-gold"
             />
           </div>
+          <select
+            className="border border-gray-200 px-4 py-2 rounded-sm focus:outline-none focus:border-wedding-gold"
+            value={accessLevelFilter}
+            onChange={(e) => setAccessLevelFilter(e.target.value)}
+          >
+            <option value="">All Access Levels</option>
+            <option value="full">Full Access</option>
+            <option value="cermony">Ceremony Only Access</option>
+          </select>
           <div className="flex gap-3">
             <button
               onClick={() => setShowBulkSend(true)}
