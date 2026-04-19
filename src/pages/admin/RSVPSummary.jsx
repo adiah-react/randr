@@ -38,8 +38,6 @@ export function RSVPSummary() {
     return matchesSearch && matchesAccessLevel && matchesStatus;
   });
 
-  console.log(filteredGuests);
-
   const downloadCSV = () => {
     const headers = [
       "Name",

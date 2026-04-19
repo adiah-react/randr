@@ -4,6 +4,7 @@ import {
   Home,
   LayoutDashboard,
   LogOut,
+  MessageCircleHeart,
   Palmtree,
   Users,
 } from "lucide-react";
@@ -33,6 +34,11 @@ export function AdminLayout({ children, title }) {
       name: "Contributions",
       path: "/admin/contributions",
       icon: <Gift size={20} />,
+    },
+    {
+      name: "Guestbook",
+      path: "/admin/guestbook",
+      icon: <MessageCircleHeart size={20} />,
     },
     {
       name: "Honeymoon Fund",

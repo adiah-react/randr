@@ -214,6 +214,16 @@ export const subscribeToGuestbook = (callback) => {
   });
 };
 
+export const deleteGuestbookMessage = async (id) => {
+  try {
+    await deleteDoc(doc(db, GUESTBOOK_COLLECTION, id));
+    return true;
+  } catch (error) {
+    console.error("Error deleting guestbook message:", error);
+    return false;
+  }
+};
+
 // ============================================
 // HONEYMOON FUND SERVICES
 // ============================================

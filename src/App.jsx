@@ -25,6 +25,7 @@ import { AdminRoute } from "./components/admin/AdminRoute";
 import { AdminDashboard } from "./pages/admin/AdminDashboard";
 import { AdminLogin } from "./pages/admin/AdminLogin";
 import { ContributionTracking } from "./pages/admin/ContributionTracking";
+import GuestbookManagement from "./pages/admin/GuestbookManagement";
 import { GuestManagement } from "./pages/admin/GuestManagement";
 import HoneymoonManagement from "./pages/admin/HoneymoonManagement";
 import { RSVPSummary } from "./pages/admin/RSVPSummary";
@@ -139,6 +140,15 @@ function AppContent() {
               element={
                 <AdminRoute>
                   <GuestManagement />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/guestbook"
+              element={
+                <AdminRoute>
+                  <GuestbookManagement />
                 </AdminRoute>
               }
             />
