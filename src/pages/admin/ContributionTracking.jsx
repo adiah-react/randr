@@ -1,6 +1,7 @@
 import { Gift, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { AdminLayout } from "../../components/admin/AdminLayout";
+import { ContributionMessageModal } from "../../components/ui/ContributionMessageModal";
 import {
   deleteContribution,
   getContributions,
@@ -11,6 +12,10 @@ export function ContributionTracking() {
   const [contributions, setContributions] = useState([]);
   const [honeymoonItems, setHoneymoonItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [isOpen, setIsOpen] = useState(true);
+  const [message, setMessage] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +29,16 @@ export function ContributionTracking() {
     };
     fetchData();
   }, []);
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
+
+  const showMessage = (guestName, message) => {
+    setName(guestName);
+    setMessage(message);
+    setIsOpen(true);
+  };
 
   const handleDelete = async (contributionId) => {
     if (confirm("Are you sure you want to delete this contribution?")) {
@@ -89,8 +104,15 @@ export function ContributionTracking() {
                     <td className="px-6 py-4 font-medium text-green-600">
                       ${contribution.amount.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 max-w-xs">
-                      {/* truncate */}
+                    <td
+                      className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate cursor-pointer"
+                      onClick={() =>
+                        showMessage(
+                          contribution.guestName,
+                          contribution.message,
+                        )
+                      }
+                    >
                       {contribution.message || "-"}
                     </td>
                     <td className="px-6 py-4 text-right space-x-2">
@@ -109,6 +131,13 @@ export function ContributionTracking() {
           </div>
         )}
       </div>
+
+      <ContributionMessageModal
+        isOpen={isOpen}
+        onClose={handleModalClose}
+        name={name}
+        message={message}
+      />
     </AdminLayout>
   );
 }
