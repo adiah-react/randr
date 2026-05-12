@@ -89,7 +89,8 @@ export function ContributionTracking() {
                     <td className="px-6 py-4 font-medium text-green-600">
                       ${contribution.amount.toLocaleString()}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
+                    <td className="px-6 py-4 text-sm text-gray-600 max-w-xs">
+                      {/* truncate */}
                       {contribution.message || "-"}
                     </td>
                     <td className="px-6 py-4 text-right space-x-2">
