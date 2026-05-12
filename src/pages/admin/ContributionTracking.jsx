@@ -13,7 +13,7 @@ export function ContributionTracking() {
   const [honeymoonItems, setHoneymoonItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
 
