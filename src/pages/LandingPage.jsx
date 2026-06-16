@@ -1,14 +1,56 @@
-import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Camera, ChevronDown, Heart, MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "../components/ui/Button";
+import Confetti from "../components/ui/Confetti";
 import { CountdownTimer } from "../components/ui/CountdownTimer";
 import { PageTransition } from "../components/ui/PageTransition";
+
+const GALLERY_IMAGES = [
+  "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1606800052052-a08af7148866?q=80&w=1170&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1170&auto=format&fit=crop",
+];
+
 export function LandingPage() {
   // Wedding date: June 20, 2026
-  const weddingDate = new Date("2026-06-20T14:00:00");
+  // const weddingDate = new Date("2026-06-20T14:00:00");
+  const weddingDate = new Date("2026-06-16T13:46:00");
+
+  const [isMarried, setIsMarried] = useState(
+    weddingDate.getTime() - new Date().getTime() <= 0,
+  );
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const handleCountdownComplete = () => {
+    setIsMarried(true);
+    setShowConfetti(true);
+    // confetti burst plays for a while then settles
+    setTimeout(() => setShowConfetti(false), 8000);
+  };
+
+  // Celebrate with a confetti burst on first load if the day has already arrived
+  useEffect(() => {
+    if (isMarried) {
+      setShowConfetti(true);
+      const timer = setTimeout(() => setShowConfetti(false), 8000);
+      return () => clearTimeout(timer);
+    }
+    // We only want this to run once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <PageTransition className="bg-wedding-black text-white">
+      {/* Confetti burst on the moment of marriage */}
+      <AnimatePresence>
+        {showConfetti && <Confetti count={150} loop />}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <section className="h-screen w-full flex flex-col items-center justify-center relative px-4 overflow-hidden">
         {/* Background Image */}
@@ -18,23 +60,52 @@ export function LandingPage() {
         </div>
 
         <div className="z-10 text-center space-y-8 max-w-4xl mx-auto">
-          <motion.p
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              delay: 0.2,
-              duration: 0.8,
-            }}
-            className="text-wedding-grey text-lg md:text-xl italic font-serif tracking-wide"
-          >
-            &quot;Two souls, one heart&quot;
-          </motion.p>
+          <AnimatePresence mode="wait">
+            {isMarried ? (
+              <motion.p
+                key="married-tagline"
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                }}
+                transition={{
+                  duration: 0.8,
+                }}
+                className="text-wedding-gold text-lg md:text-2xl italic font-serif tracking-wide"
+              >
+                Just Married 💍
+              </motion.p>
+            ) : (
+              <motion.p
+                key="pre-tagline"
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                exit={{
+                  opacity: 0,
+                }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.8,
+                }}
+                className="text-wedding-grey text-lg md:text-xl italic font-serif tracking-wide"
+              >
+                &quot;Two souls, one heart&quot;
+              </motion.p>
+            )}
+          </AnimatePresence>
 
           <motion.h1
             initial={{
@@ -75,10 +146,10 @@ export function LandingPage() {
             className="flex flex-col items-center space-y-6"
           >
             <p className="text-wedding-grey text-xl tracking-[0.2em] uppercase font-light">
-              June 20, 2026
+              {isMarried ? "June 20, 2026 • Forever Begins" : "June 20, 2026"}
             </p>
 
-            {/* Countdown Timer */}
+            {/* Countdown / Time Married Timer */}
             <motion.div
               initial={{
                 opacity: 0,
@@ -94,18 +165,41 @@ export function LandingPage() {
               }}
               className="pt-4"
             >
-              <CountdownTimer targetDate={weddingDate} />
+              <CountdownTimer
+                targetDate={weddingDate}
+                onComplete={handleCountdownComplete}
+              />
             </motion.div>
 
-            <div className="pt-8">
-              <Link to="/details">
-                <Button
-                  variant="outline"
-                  className="border-white text-white hover:bg-white hover:text-black"
-                >
-                  Event Details
-                </Button>
-              </Link>
+            <div className="pt-8 flex flex-col sm:flex-row gap-4">
+              {isMarried ? (
+                <>
+                  <a href="#gallery">
+                    <Button variant="primary" className="w-full sm:w-auto">
+                      <Camera size={16} className="mr-2" />
+                      View Gallery
+                    </Button>
+                  </a>
+                  <Link to="/guestbook">
+                    <Button
+                      variant="outline"
+                      className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-black"
+                    >
+                      <MessageCircle size={16} className="mr-2" />
+                      Sign Guestbook
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Link to="/details">
+                  <Button
+                    variant="outline"
+                    className="border-white text-white hover:bg-white hover:text-black"
+                  >
+                    Event Details
+                  </Button>
+                </Link>
+              )}
             </div>
           </motion.div>
         </div>
@@ -128,41 +222,113 @@ export function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Introduction / Teaser Section */}
-      <section className="py-24 px-6 bg-white text-wedding-black">
-        <div className="max-w-3xl mx-auto text-center space-y-8">
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: true,
-            }}
-            transition={{
-              duration: 0.8,
-            }}
-          >
-            <h2 className="text-4xl md:text-5xl font-serif mb-6">
-              We're Getting Married
-            </h2>
-            <p className="text-lg text-gray-600 leading-relaxed font-light">
-              We invite you to join us as we celebrate our love and new
-              beginning. Please join us for an evening of romance, laughter, and
-              joy.
-            </p>
-            <div className="mt-10">
-              <Link to="/story">
-                <Button variant="secondary">Read Our Story</Button>
-              </Link>
+      {/* Married: Unlocked Gallery Section */}
+      {isMarried && (
+        <section
+          id="gallery"
+          className="py-24 px-6 bg-white text-wedding-black"
+        >
+          <div className="max-w-6xl mx-auto">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                duration: 0.8,
+              }}
+              className="text-center mb-16"
+            >
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-wedding-gold/10 mb-4">
+                <Heart className="w-6 h-6 text-wedding-gold" />
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif mb-4">
+                Our Wedding Day
+              </h2>
+              <p className="text-lg text-gray-500 font-light max-w-2xl mx-auto">
+                A glimpse into the most magical day of our lives. Thank you for
+                being part of our story.
+              </p>
+              <div className="w-16 h-px bg-wedding-gold mx-auto mt-6"></div>
+            </motion.div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+              {GALLERY_IMAGES.map((src, index) => (
+                <motion.div
+                  key={src}
+                  initial={{
+                    opacity: 0,
+                    scale: 0.95,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    delay: index * 0.08,
+                    duration: 0.6,
+                  }}
+                  className={`overflow-hidden rounded-s ${index === 0 ? "col-span-2 row-span-2" : ""}`}
+                >
+                  <img
+                    src={src}
+                    alt={`Wedding moment ${index + 1}`}
+                    className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
+                  />
+                </motion.div>
+              ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
+
+      {/* Introduction / Teaser Section (only before the wedding) */}
+      {!isMarried && (
+        <section className="py-24 px-6 bg-white text-wedding-black">
+          <div className="max-w-3xl mx-auto text-center space-y-8">
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 30,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                duration: 0.8,
+              }}
+            >
+              <h2 className="text-4xl md:text-5xl font-serif mb-6">
+                We're Getting Married
+              </h2>
+              <p className="text-lg text-gray-600 leading-relaxed font-light">
+                We invite you to join us as we celebrate our love and new
+                beginning. Please join us for an evening of romance, laughter,
+                and joy.
+              </p>
+              <div className="mt-10">
+                <Link to="/story">
+                  <Button variant="secondary">Read Our Story</Button>
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      )}
     </PageTransition>
   );
 }
