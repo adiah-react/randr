@@ -21,6 +21,7 @@ import {
 } from "firebase/auth";
 
 import {
+  deleteObject,
   getDownloadURL,
   ref as storageRef,
   uploadBytes,
@@ -452,6 +453,7 @@ export const subscribeToPhotos = (callback) => {
           url: data.url,
           uploaderName: data.uploaderName || "Anonymomus",
           caption: data.caption || "",
+          storagePath: data.storagePath || "",
           createdAt:
             data.createdAt?.toDate?.()?.toISOString?.() ||
             new Date().toISOString(),
@@ -483,6 +485,7 @@ export const getAllPhotos = async () => {
         url: data.url,
         uploaderName: data.uploaderName || "Anonymous",
         caption: data.caption || "",
+        storagePath: data.storagePath || "",
         createdAt:
           data.createdAt?.toDate?.()?.toISOString?.() ||
           new Date().toISOString(),
@@ -491,6 +494,33 @@ export const getAllPhotos = async () => {
   } catch (error) {
     console.error("Error fetching photos:", error);
     return [];
+  }
+};
+
+/**
+ * Deletes a photo from both Firestore and Firebase Storage.
+ * The storagePath is used to remove the underlying file; if it's missing,
+ * only the Firestore document is removed
+ */
+export const deletePhoto = async (photoId, storagePath) => {
+  try {
+    // Remove the Firestore metadata document
+    await deleteDoc(doc(db, PHOTOS_COLLECTION, photoId));
+
+    // Remove the underlying file from storage
+    if (storagePath) {
+      try {
+        await deleteObject(storageRef(storage, storagePath));
+      } catch (storageError) {
+        // File may already be gone - log but don't fail the whole operation
+        console.warn("Could not delete storage file:", storageError);
+      }
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Error deleting photo:", error);
+    return false;
   }
 };
 

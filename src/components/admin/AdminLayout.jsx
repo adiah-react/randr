@@ -2,6 +2,7 @@ import {
   ClipboardList,
   Gift,
   Home,
+  ImageIcon,
   LayoutDashboard,
   LogOut,
   MessageCircleHeart,
@@ -44,6 +45,11 @@ export function AdminLayout({ children, title }) {
       name: "Honeymoon Fund",
       path: "/admin/honeymoon",
       icon: <Palmtree size={20} />,
+    },
+    {
+      name: "Photo Gallery",
+      path: "/admin/photos",
+      icon: <ImageIcon size={20} />,
     },
   ];
 

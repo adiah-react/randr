@@ -28,6 +28,7 @@ import { ContributionTracking } from "./pages/admin/ContributionTracking";
 import GuestbookManagement from "./pages/admin/GuestbookManagement";
 import { GuestManagement } from "./pages/admin/GuestManagement";
 import HoneymoonManagement from "./pages/admin/HoneymoonManagement";
+import { PhotoManagement } from "./pages/admin/PhotoManagement";
 import { RSVPSummary } from "./pages/admin/RSVPSummary";
 import BridalPartyPage from "./pages/BridalPartyPage";
 import { PhotoUploadPage } from "./pages/PhotoUploadPage";
@@ -177,6 +178,15 @@ function AppContent() {
               element={
                 <AdminRoute>
                   <HoneymoonManagement />
+                </AdminRoute>
+              }
+            />
+
+            <Route
+              path="/admin/photos"
+              element={
+                <AdminRoute>
+                  <PhotoManagement />
                 </AdminRoute>
               }
             />
