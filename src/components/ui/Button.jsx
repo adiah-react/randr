@@ -16,6 +16,8 @@ export function Button({
       "bg-wedding-black text-white hover:bg-gray-900 focus:ring-wedding-black",
     outline:
       "border border-wedding-black text-wedding-black hover:bg-wedding-black hover:text-white focus:ring-wedding-black bg-transparent",
+    outlineWhite:
+      "border border-white text-white hover:bg-white hover:text-wedding-black focus:ring-wedding-black bg-transparent",
   };
   const sizes = {
     sm: "h-9 px-4",
