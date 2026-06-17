@@ -30,6 +30,7 @@ import { GuestManagement } from "./pages/admin/GuestManagement";
 import HoneymoonManagement from "./pages/admin/HoneymoonManagement";
 import { RSVPSummary } from "./pages/admin/RSVPSummary";
 import BridalPartyPage from "./pages/BridalPartyPage";
+import { PhotoUploadPage } from "./pages/PhotoUploadPage";
 
 // Scroll to top on route change
 function ScrollToTop() {
@@ -93,6 +94,15 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <BridalPartyPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/upload"
+              element={
+                <ProtectedRoute>
+                  <PhotoUploadPage />
                 </ProtectedRoute>
               }
             />

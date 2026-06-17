@@ -1,13 +1,20 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Camera, ChevronDown, Heart, MessageCircle } from "lucide-react";
+import {
+  Camera,
+  ChevronDown,
+  Heart,
+  MessageCircle,
+  UploadCloud,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { Button } from "../components/ui/Button";
 import Confetti from "../components/ui/Confetti";
 import { CountdownTimer } from "../components/ui/CountdownTimer";
 import { PageTransition } from "../components/ui/PageTransition";
+import { subscribeToPhotos } from "../lib/firebaseService";
 
-const GALLERY_IMAGES = [
+const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=1170&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?q=80&w=1170&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1170&auto=format&fit=crop",
@@ -25,6 +32,15 @@ export function LandingPage() {
     weddingDate.getTime() - new Date().getTime() <= 0,
   );
   const [showConfetti, setShowConfetti] = useState(false);
+  const [photos, setPhotos] = useState([]);
+
+  // Subscribe to guest-uploaded photos in real time
+  useEffect(() => {
+    const unsubscribe = subscribeToPhotos(setPhotos);
+    return () => unsubscribe();
+  }, []);
+
+  const hasGuestPhotos = photos.length > 0;
 
   const handleCountdownComplete = () => {
     setIsMarried(true);
@@ -182,7 +198,7 @@ export function LandingPage() {
                   </a>
                   <Link to="/guestbook">
                     <Button
-                      variant="outline"
+                      variant="outlineWhite"
                       className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-black"
                     >
                       <MessageCircle size={16} className="mr-2" />
@@ -193,7 +209,7 @@ export function LandingPage() {
               ) : (
                 <Link to="/details">
                   <Button
-                    variant="outline"
+                    variant="outlineWhite"
                     className="border-white text-white hover:bg-white hover:text-black"
                   >
                     Event Details
@@ -260,34 +276,104 @@ export function LandingPage() {
             </motion.div>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-              {GALLERY_IMAGES.map((src, index) => (
-                <motion.div
-                  key={src}
-                  initial={{
-                    opacity: 0,
-                    scale: 0.95,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    scale: 1,
-                  }}
-                  viewport={{
-                    once: true,
-                  }}
-                  transition={{
-                    delay: index * 0.08,
-                    duration: 0.6,
-                  }}
-                  className={`overflow-hidden rounded-s ${index === 0 ? "col-span-2 row-span-2" : ""}`}
-                >
-                  <img
-                    src={src}
-                    alt={`Wedding moment ${index + 1}`}
-                    className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
-                  />
-                </motion.div>
-              ))}
+              {hasGuestPhotos
+                ? photos.map((photo, index) => (
+                    <motion.div
+                      key={photo.id}
+                      initial={{
+                        opacity: 0,
+                        scale: 0.95,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        scale: 1,
+                      }}
+                      viewport={{
+                        once: true,
+                      }}
+                      transition={{
+                        delay: Math.min(index, 8) * 0.08,
+                        duration: 0.6,
+                      }}
+                      className={`group relative overflow-hidden rounded-sm ${index === 0 ? "col-span-2 row-span-2" : ""}`}
+                    >
+                      <img
+                        src={photo.url}
+                        alt={photo.caption || `Photo by ${photo.uploaderName}`}
+                        className="w-full h-full object-cover aspect-square group-hover:scale-105 transition-transform duration-500"
+                      />
+                      {/* Attribution overlay */}
+                      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {photo.caption && (
+                          <p className="text-white text-sm font-light line-clamp-2">
+                            {photo.caption}
+                          </p>
+                        )}
+                        <p className="text-white/70 text-xs mt-0.5">
+                          — {photo.uploaderName}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))
+                : FALLBACK_IMAGES.map((src, index) => (
+                    <motion.div
+                      key={src}
+                      initial={{
+                        opacity: 0,
+                        scale: 0.95,
+                      }}
+                      whileInView={{
+                        opacity: 1,
+                        scale: 1,
+                      }}
+                      viewport={{
+                        once: true,
+                      }}
+                      transition={{
+                        delay: index * 0.08,
+                        duration: 0.6,
+                      }}
+                      className={`overflow-hidden rounded-s ${index === 0 ? "col-span-2 row-span-2" : ""}`}
+                    >
+                      <img
+                        src={src}
+                        alt={`Wedding moment ${index + 1}`}
+                        className="w-full h-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
+                      />
+                    </motion.div>
+                  ))}
             </div>
+
+            {/* Add Your Photos CTA */}
+            <motion.div
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+              }}
+              transition={{
+                duration: 0.6,
+              }}
+              className="mt-10 text-center"
+            >
+              <Link to="/upload">
+                <Button variant="secondary" size="lg">
+                  <UploadCloud size={18} className="mr-2" />
+                  Add Your Photos
+                </Button>
+              </Link>
+              <p className="text-sm text-gray-400 mt-3">
+                {hasGuestPhotos
+                  ? "Help us fill the gallery - share your snapshots from the day!"
+                  : "Be the first to share a memory from our special day!"}
+              </p>
+            </motion.div>
           </div>
         </section>
       )}

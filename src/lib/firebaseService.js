@@ -20,7 +20,13 @@ import {
   signOut,
 } from "firebase/auth";
 
-import { auth, db } from "./firebase";
+import {
+  getDownloadURL,
+  ref as storageRef,
+  uploadBytes,
+} from "firebase/storage";
+
+import { auth, db, storage } from "./firebase";
 
 // ============================================
 // INVITATION SERVICES
@@ -385,6 +391,107 @@ export const adminLogout = async () => {
 
 export const subscribeToAuthState = (callback) => {
   return onAuthStateChanged(auth, callback);
+};
+
+// ============================================
+// PHOTO GALLERY SERVICES
+// ============================================
+
+const PHOTOS_COLLECTION = "photos";
+
+/**
+ * Uploads a photo file to Firebase Storage and saves its metadata to Firestore.
+ * Returns the public download URL on success, or null on failure.
+ */
+
+export const uploadPhoto = async (file, uploaderName, caption) => {
+  try {
+    // Create a unique storage path
+    const safeName = file.name.replace(/[^a-zA-Z0-9.\-_]/g, "_");
+    const path = `gallery/${Date.now()}-${safeName}`;
+    const fileRef = storageRef(storage, path);
+
+    // Upload the file bytes
+    await uploadBytes(fileRef, file);
+
+    // Get the public URL
+    const url = await getDownloadURL(fileRef);
+
+    // Save metadata to Firestore
+    await addDoc(collection(db, PHOTOS_COLLECTION), {
+      url,
+      uploaderName: uploaderName.trim() || "Anonymous",
+      caption: caption?.trim() || "",
+      storagePath: path,
+      createdAt: Timestamp.now(),
+    });
+
+    return url;
+  } catch (error) {
+    console.error("Error uploading photo:", error);
+    return null;
+  }
+};
+
+/**
+ * Subscribes to real-time updates of the photo gallery, newest first.
+ */
+
+export const subscribeToPhotos = (callback) => {
+  const q = query(
+    collection(db, PHOTOS_COLLECTION),
+    orderBy("createdAt", "desc"),
+  );
+  return onSnapshot(
+    q,
+    (snapshot) => {
+      const photos = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        return {
+          id: doc.id,
+          url: data.url,
+          uploaderName: data.uploaderName || "Anonymomus",
+          caption: data.caption || "",
+          createdAt:
+            data.createdAt?.toDate?.()?.toISOString?.() ||
+            new Date().toISOString(),
+        };
+      });
+      callback(photos);
+    },
+    (error) => {
+      console.error("Error subscribing to photos:", error);
+      callback([]);
+    },
+  );
+};
+
+/**
+ * One-time fetch of all gallery photos, newest first.
+ */
+export const getAllPhotos = async () => {
+  try {
+    const q = query(
+      collection(db, PHOTOS_COLLECTION),
+      orderBy("createdAt", "desc"),
+    );
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map((doc) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        url: data.url,
+        uploaderName: data.uploaderName || "Anonymous",
+        caption: data.caption || "",
+        createdAt:
+          data.createdAt?.toDate?.()?.toISOString?.() ||
+          new Date().toISOString(),
+      };
+    });
+  } catch (error) {
+    console.error("Error fetching photos:", error);
+    return [];
+  }
 };
 
 // ============================================
