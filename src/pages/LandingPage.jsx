@@ -25,8 +25,8 @@ const FALLBACK_IMAGES = [
 
 export function LandingPage() {
   // Wedding date: June 20, 2026
-  // const weddingDate = new Date("2026-06-20T14:00:00");
-  const weddingDate = new Date("2026-06-16T13:46:00");
+  const weddingDate = new Date("2026-06-20T14:00:00");
+  // const weddingDate = new Date("2026-06-16T13:46:00");
 
   const [isMarried, setIsMarried] = useState(
     weddingDate.getTime() - new Date().getTime() <= 0,
