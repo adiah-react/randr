@@ -55,6 +55,7 @@ function AppContent() {
           <Routes location={location} key={location.pathname}>
             {/* Public Routes */}
             <Route path="/" element={<LandingPage />} />
+            <Route path="/upload" element={<PhotoUploadPage />} />
             {/* <Route path="/story" element={<OurStory />} />
             <Route path="/details" element={<EventDetails />} /> */}
 
@@ -95,15 +96,6 @@ function AppContent() {
               element={
                 <ProtectedRoute>
                   <BridalPartyPage />
-                </ProtectedRoute>
-              }
-            />
-
-            <Route
-              path="/upload"
-              element={
-                <ProtectedRoute>
-                  <PhotoUploadPage />
                 </ProtectedRoute>
               }
             />
